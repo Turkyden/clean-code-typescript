@@ -1,4 +1,4 @@
-# Typescript 风格指南 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Clean%20Code%20Typescript&url=https://github.com/labs42io/clean-code-typescript)
+# Typescript 代码整洁之道 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Clean%20Code%20Typescript&url=https://github.com/labs42io/clean-code-typescript)
 
 适用于 Typescript 的代码整洁之道。
 受到 [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) 的启发。
@@ -87,7 +87,7 @@ type Customer = {
 
 **[⬆ 返回顶部](#目录)**
 
-### Use the same vocabulary for the same type of variable
+### 对于相同类型的变量只使用同一个单词
 
 **反例:**
 
@@ -105,21 +105,21 @@ function getUser(): User;
 
 **[⬆ 返回顶部](#目录)**
 
-### Use searchable names
+### 使用可搜索的名称
 
-We will read more code than we will ever write. It's important that the code we do write is readable and searchable. By *not* naming variables that end up being meaningful for understanding our program, we hurt our readers. Make your names searchable. Tools like [TSLint](https://palantir.github.io/tslint/rules/no-magic-numbers/) can help identify unnamed constants.
+我们阅读的代码往往比我们要写的代码多。因此我们编写的代码的可读性和可搜索性是非常重要的。不给那些具有意义且有助于理解程序的变量命名，就会伤害了阅读代码的人。让您的名字可搜索。像 [TSLint](https://palantir.github.io/tslint/rules/no-magic-numbers/) 这样的工具可以帮助识别未命名的常量。
 
 **反例:**
 
 ```ts
-// What the heck is 86400000 for?
+// 86400000 到底是什么？
 setTimeout(restart, 86400000);
 ```
 
 **正例:**
 
 ```ts
-// Declare them as capitalized named constants.
+// 将它们声明为大写的命名常量。
 const MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
 
 setTimeout(restart, MILLISECONDS_IN_A_DAY);
@@ -127,7 +127,7 @@ setTimeout(restart, MILLISECONDS_IN_A_DAY);
 
 **[⬆ 返回顶部](#目录)**
 
-### Use explanatory variables
+### 使用变量展开
 
 **反例:**
 
@@ -135,7 +135,7 @@ setTimeout(restart, MILLISECONDS_IN_A_DAY);
 declare const users: Map<string, User>;
 
 for (const keyValue of users) {
-  // iterate through users map
+  // 迭代用户地图
 }
 ```
 
@@ -145,16 +145,16 @@ for (const keyValue of users) {
 declare const users: Map<string, User>;
 
 for (const [id, user] of users) {
-  // iterate through users map
+  // 迭代用户地图
 }
 ```
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid Mental Mapping
+### 避免心照不宣
 
-Explicit is better than implicit.  
-*Clarity is king.*
+显式优于隐式。  
+*清晰是王道。*
 
 **反例:**
 
@@ -174,9 +174,9 @@ const transaction = charge(user, subscription);
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't add unneeded context
+### 不要添加不需要的上下文
 
-If your class/type/object name tells you something, don't repeat that in your variable name.
+如果你的 类/类型/对象 名称中已经有说明，不要在你的变量中重复它们。
 
 **反例:**
 
@@ -208,9 +208,9 @@ function print(car: Car): void {
 
 **[⬆ 返回顶部](#目录)**
 
-### Use default arguments instead of short circuiting or conditionals
+### 使用默认参数而不是短路表达式或条件语句
 
-Default arguments are often cleaner than short circuiting.
+默认参数通常比短路表达式更清晰。
 
 **反例:**
 
