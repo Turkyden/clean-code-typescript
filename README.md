@@ -1,12 +1,12 @@
-# clean-code-typescript [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Clean%20Code%20Typescript&url=https://github.com/labs42io/clean-code-typescript)
+# Typescript 风格指南 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Clean%20Code%20Typescript&url=https://github.com/labs42io/clean-code-typescript)
 
-Clean Code concepts adapted for TypeScript.  
-Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript).
+适用于 Typescript 的代码整洁之道。
+受到 [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) 的启发。
 
-## Table of Contents
+## 目录
 
-  1. [Introduction](#introduction)
-  2. [Variables](#variables)
+  1. [介绍](#介绍)
+  2. [变量](#变量)
   3. [Functions](#functions)
   4. [Objects and Data Structures](#objects-and-data-structures)
   5. [Classes](#classes)
@@ -18,43 +18,31 @@ Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-cod
   11. [Comments](#comments)
   12. [Translations](#translations)
 
-## Introduction
+## 介绍
 
 ![Humorous image of software quality estimation as a count of how many expletives
 you shout when reading code](https://www.osnews.com/images/comics/wtfm.jpg)
 
-Software engineering principles, from Robert C. Martin's book
+软件工程原理，源自 Robert C. Martin's 的书
 [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
-adapted for TypeScript. This is not a style guide. It's a guide to producing
-[readable, reusable, and refactorable](https://github.com/ryanmcdermott/3rs-of-software-architecture) software in TypeScript.
+适用于 TypeScript。 这不是风格指南，它是在 TypeScript 中生成
+[可读，可重用和可重构](https://github.com/ryanmcdermott/3rs-of-software-architecture) 软件的指南。
 
-Not every principle herein has to be strictly followed, and even fewer will be
-universally agreed upon. These are guidelines and nothing more, but they are
-ones codified over many years of collective experience by the authors of
-*Clean Code*.
+并非每个原则都必须严格遵守，普遍认同的甚至更少。这些只是准则，仅此而已，但他们却是 *Clean Code* 一书的作者根据自身多年的编程体会而提炼撰写出来的。
 
-Our craft of software engineering is just a bit over 50 years old, and we are
-still learning a lot. When software architecture is as old as architecture
-itself, maybe then we will have harder rules to follow. For now, let these
-guidelines serve as a touchstone by which to assess the quality of the
-TypeScript code that you and your team produce.
+我们的软件工程技术只有50多年的历史，我们还有很多东西需要学习。当软件架构与架构本身一样古老时，也许那时我们会有更难遵循的规则。现在，让这些指导方针作为一个试金石，用来评估您和您的团队所生成的 Typescript 代码的质量.
 
-One more thing: knowing these won't immediately make you a better software
-developer, and working with them for many years doesn't mean you won't make
-mistakes. Every piece of code starts as a first draft, like wet clay getting
-shaped into its final form. Finally, we chisel away the imperfections when
-we review it with our peers. Don't beat yourself up for first drafts that need
-improvement. Beat up the code instead!
+除此之外：知道这些并不会立即使你成为一个更好的软件开发者，这些规则伴随你工作多年后并不意味着你就不会犯错误了。每一段代码都是作为初稿开始的，就像湿粘土被塑造成最终形状一样。最终，当我们与小伙伴们一起审查时，我们会凿掉不完美之处。不要因为这些需要改进的初稿而阻碍自己技术的提升。先干掉代码吧！
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
-## Variables
+## 变量
 
-### Use meaningful variable names
+### 使用有意义的变量名
 
-Distinguish names in such a way that the reader knows what the differences offer.
+以这样的方式区分名称，以便读者知道他们的差异到底是什么。
 
-**Bad:**
+**反例:**
 
 ```ts
 function between<T>(a1: T, a2: T, a3: T): boolean {
@@ -63,7 +51,7 @@ function between<T>(a1: T, a2: T, a3: T): boolean {
 
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function between<T>(value: T, left: T, right: T): boolean {
@@ -71,13 +59,13 @@ function between<T>(value: T, left: T, right: T): boolean {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
-### Use pronounceable variable names
+### 使用可拼读的变量名
 
-If you can’t pronounce it, you can’t discuss it without sounding like an idiot.
+如果你不能拼读他，你只能像个白痴一样去声明它。
 
-**Bad:**
+**反例:**
 
 ```ts
 type DtaRcrd102 = {
@@ -87,7 +75,7 @@ type DtaRcrd102 = {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 type Customer = {
@@ -97,11 +85,11 @@ type Customer = {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Use the same vocabulary for the same type of variable
 
-**Bad:**
+**反例:**
 
 ```ts
 function getUserInfo(): User;
@@ -109,26 +97,26 @@ function getUserDetails(): User;
 function getUserData(): User;
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function getUser(): User;
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Use searchable names
 
 We will read more code than we will ever write. It's important that the code we do write is readable and searchable. By *not* naming variables that end up being meaningful for understanding our program, we hurt our readers. Make your names searchable. Tools like [TSLint](https://palantir.github.io/tslint/rules/no-magic-numbers/) can help identify unnamed constants.
 
-**Bad:**
+**反例:**
 
 ```ts
 // What the heck is 86400000 for?
 setTimeout(restart, 86400000);
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 // Declare them as capitalized named constants.
@@ -137,11 +125,11 @@ const MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
 setTimeout(restart, MILLISECONDS_IN_A_DAY);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Use explanatory variables
 
-**Bad:**
+**反例:**
 
 ```ts
 declare const users: Map<string, User>;
@@ -151,7 +139,7 @@ for (const keyValue of users) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 declare const users: Map<string, User>;
@@ -161,14 +149,14 @@ for (const [id, user] of users) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid Mental Mapping
 
 Explicit is better than implicit.  
 *Clarity is king.*
 
-**Bad:**
+**反例:**
 
 ```ts
 const u = getUser();
@@ -176,7 +164,7 @@ const s = getSubscription();
 const t = charge(u, s);
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 const user = getUser();
@@ -184,13 +172,13 @@ const subscription = getSubscription();
 const transaction = charge(user, subscription);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't add unneeded context
 
 If your class/type/object name tells you something, don't repeat that in your variable name.
 
-**Bad:**
+**反例:**
 
 ```ts
 type Car = {
@@ -204,7 +192,7 @@ function print(car: Car): void {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 type Car = {
@@ -218,13 +206,13 @@ function print(car: Car): void {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Use default arguments instead of short circuiting or conditionals
 
 Default arguments are often cleaner than short circuiting.
 
-**Bad:**
+**反例:**
 
 ```ts
 function loadPages(count?: number) {
@@ -233,7 +221,7 @@ function loadPages(count?: number) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function loadPages(count: number = 10) {
@@ -241,7 +229,7 @@ function loadPages(count: number = 10) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Functions
 
@@ -265,7 +253,7 @@ This has a few advantages:
 
 3. TypeScript warns you about unused properties, which would be impossible without destructuring.
 
-**Bad:**
+**反例:**
 
 ```ts
 function createMenu(title: string, body: string, buttonText: string, cancellable: boolean) {
@@ -275,7 +263,7 @@ function createMenu(title: string, body: string, buttonText: string, cancellable
 createMenu('Foo', 'Bar', 'Baz', true);
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function createMenu(options: { title: string, body: string, buttonText: string, cancellable: boolean }) {
@@ -308,13 +296,13 @@ createMenu({
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Functions should do one thing
 
 This is by far the most important rule in software engineering. When functions do more than one thing, they are harder to compose, test, and reason about. When you can isolate a function to just one action, they can be refactored easily and your code will read much cleaner. If you take nothing else away from this guide other than this, you'll be ahead of many developers.
 
-**Bad:**
+**反例:**
 
 ```ts
 function emailClients(clients: Client) {
@@ -327,7 +315,7 @@ function emailClients(clients: Client) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function emailClients(clients: Client) {
@@ -340,11 +328,11 @@ function isActiveClient(client: Client) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Function names should say what they do
 
-**Bad:**
+**反例:**
 
 ```ts
 function addToDate(date: Date, month: number): Date {
@@ -357,7 +345,7 @@ const date = new Date();
 addToDate(date, 1);
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function addMonthToDate(date: Date, month: number): Date {
@@ -368,13 +356,13 @@ const date = new Date();
 addMonthToDate(date, 1);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Functions should only be one level of abstraction
 
 When you have more than one level of abstraction your function is usually doing too much. Splitting up functions leads to reusability and easier testing.
 
-**Bad:**
+**反例:**
 
 ```ts
 function parseCode(code: string) {
@@ -399,7 +387,7 @@ function parseCode(code: string) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 const REGEXES = [ /* ... */ ];
@@ -436,7 +424,7 @@ function parse(tokens: Token[]): SyntaxTree {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Remove duplicate code
 
@@ -451,7 +439,7 @@ Oftentimes you have duplicate code because you have two or more slightly differe
 
 Getting the abstraction right is critical, that's why you should follow the [SOLID](#solid) principles. Bad abstractions can be worse than duplicate code, so be careful! Having said this, if you can make a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself updating multiple places anytime you want to change one thing.
 
-**Bad:**
+**反例:**
 
 ```ts
 function showDeveloperList(developers: Developer[]) {
@@ -487,7 +475,7 @@ function showManagerList(managers: Manager[]) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class Developer {
@@ -527,11 +515,11 @@ function showEmployeeList(employee: Developer | Manager) {
 
 You should be critical about code duplication. Sometimes there is a tradeoff between duplicated code and increased complexity by introducing unnecessary abstraction. When two implementations from two different modules look similar but live in different domains, duplication might be acceptable and preferred over extracting the common code. The extracted common code in this case introduces an indirect dependency between the two modules.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Set default objects with Object.assign or destructuring
 
-**Bad:**
+**反例:**
 
 ```ts
 type MenuConfig = { title?: string, body?: string, buttonText?: string, cancellable?: boolean };
@@ -548,7 +536,7 @@ function createMenu(config: MenuConfig) {
 createMenu({ body: 'Bar' });
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 type MenuConfig = { title?: string, body?: string, buttonText?: string, cancellable?: boolean };
@@ -582,14 +570,14 @@ createMenu({ body: 'Bar' });
 To avoid any side effects and unexpected behavior by passing in explicitly the `undefined` or `null` value, you can tell the TypeScript compiler to not allow it.
 See [`--strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks) option in TypeScript.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't use flags as function parameters
 
 Flags tell your user that this function does more than one thing.
 Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
 
-**Bad:**
+**反例:**
 
 ```ts
 function createFile(name: string, temp: boolean) {
@@ -601,7 +589,7 @@ function createFile(name: string, temp: boolean) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function createTempFile(name: string) {
@@ -613,7 +601,7 @@ function createFile(name: string) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid Side Effects (part 1)
 
@@ -626,7 +614,7 @@ Have one service that does it. One and only one.
 
 The main point is to avoid common pitfalls like sharing state between objects without any structure, using mutable data types that can be written to by anything, and not centralizing where your side effects occur. If you can do this, you will be happier than the vast majority of other programmers.
 
-**Bad:**
+**反例:**
 
 ```ts
 // Global variable referenced by following function.
@@ -642,7 +630,7 @@ toBase64();
 console.log(name); // expected to print 'Robert C. Martin' but instead 'Um9iZXJ0IEMuIE1hcnRpbg=='
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 const name = 'Robert C. Martin';
@@ -655,7 +643,7 @@ const encodedName = toBase64(name);
 console.log(name);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid Side Effects (part 2)
 
@@ -671,7 +659,7 @@ Two caveats to mention to this approach:
 
 2. Cloning big objects can be very expensive in terms of performance. Luckily, this isn't a big issue in practice because there are great libraries that allow this kind of programming approach to be fast and not as memory intensive as it would be for you to manually clone objects and arrays.
 
-**Bad:**
+**反例:**
 
 ```ts
 function addItemToCart(cart: CartItem[], item: Item): void {
@@ -679,7 +667,7 @@ function addItemToCart(cart: CartItem[], item: Item): void {
 };
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function addItemToCart(cart: CartItem[], item: Item): CartItem[] {
@@ -687,13 +675,13 @@ function addItemToCart(cart: CartItem[], item: Item): CartItem[] {
 };
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't write to global functions
 
 Polluting globals is a bad practice in JavaScript because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to extend JavaScript's native Array method to have a `diff` method that could show the difference between two arrays? You could write your new function to the `Array.prototype`, but it could clash with another library that tried to do the same thing. What if that other library was just using `diff` to find the difference between the first and last elements of an array? This is why it would be much better to just use classes and simply extend the `Array` global.
 
-**Bad:**
+**反例:**
 
 ```ts
 declare global {
@@ -710,7 +698,7 @@ if (!Array.prototype.diff) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class MyArray<T> extends Array<T> {
@@ -721,13 +709,13 @@ class MyArray<T> extends Array<T> {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Favor functional programming over imperative programming
 
 Favor this style of programming when you can.
 
-**Bad:**
+**反例:**
 
 ```ts
 const contributions = [
@@ -753,7 +741,7 @@ for (let i = 0; i < contributions.length; i++) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 const contributions = [
@@ -776,11 +764,11 @@ const totalOutput = contributions
   .reduce((totalLines, output) => totalLines + output.linesOfCode, 0);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Encapsulate conditionals
 
-**Bad:**
+**反例:**
 
 ```ts
 if (subscription.isTrial || account.balance > 0) {
@@ -788,7 +776,7 @@ if (subscription.isTrial || account.balance > 0) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function canActivateService(subscription: Subscription, account: Account) {
@@ -800,11 +788,11 @@ if (canActivateService(subscription, account)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid negative conditionals
 
-**Bad:**
+**反例:**
 
 ```ts
 function isEmailNotUsed(email: string): boolean {
@@ -816,7 +804,7 @@ if (isEmailNotUsed(email)) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function isEmailUsed(email): boolean {
@@ -828,13 +816,13 @@ if (!isEmailUsed(node)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid conditionals
 
 This seems like an impossible task. Upon first hearing this, most people say, "how am I supposed to do anything without an `if` statement?" The answer is that you can use polymorphism to achieve the same task in many cases. The second question is usually, "well that's great but why would I want to do that?" The answer is a previous clean code concept we learned: a function should only do one thing. When you have classes and functions that have `if` statements, you are telling your user that your function does more than one thing. Remember, just do one thing.
 
-**Bad:**
+**反例:**
 
 ```ts
 class Airplane {
@@ -860,7 +848,7 @@ class Airplane {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 abstract class Airplane {
@@ -893,7 +881,7 @@ class Cessna extends Airplane {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid type checking
 
@@ -901,7 +889,7 @@ TypeScript is a strict syntactical superset of JavaScript and adds optional stat
 Always prefer to specify types of variables, parameters and return values to leverage the full power of TypeScript features.
 It makes refactoring more easier.
 
-**Bad:**
+**反例:**
 
 ```ts
 function travelToTexas(vehicle: Bicycle | Car) {
@@ -913,7 +901,7 @@ function travelToTexas(vehicle: Bicycle | Car) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 type Vehicle = Bicycle | Car;
@@ -923,13 +911,13 @@ function travelToTexas(vehicle: Vehicle) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't over-optimize
 
 Modern browsers do a lot of optimization under-the-hood at runtime. A lot of times, if you are optimizing then you are just wasting your time. There are good [resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers) for seeing where optimization is lacking. Target those in the meantime, until they are fixed if they can be.
 
-**Bad:**
+**反例:**
 
 ```ts
 // On old browsers, each iteration with uncached `list.length` would be costly
@@ -939,7 +927,7 @@ for (let i = 0, len = list.length; i < len; i++) {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 for (let i = 0; i < list.length; i++) {
@@ -947,14 +935,14 @@ for (let i = 0; i < list.length; i++) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Remove dead code
 
 Dead code is just as bad as duplicate code. There's no reason to keep it in your codebase.
 If it's not being called, get rid of it! It will still be safe in your version history if you still need it.
 
-**Bad:**
+**反例:**
 
 ```ts
 function oldRequestModule(url: string) {
@@ -969,7 +957,7 @@ const req = requestModule;
 inventoryTracker('apples', req, 'www.inventory-awesome.io');
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function requestModule(url: string) {
@@ -980,7 +968,7 @@ const req = requestModule;
 inventoryTracker('apples', req, 'www.inventory-awesome.io');
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Use iterators and generators
 
@@ -993,7 +981,7 @@ items to access
 - built-in support for iterating items using the `for-of` syntax
 - iterables allow to implement optimized iterator patterns
 
-**Bad:**
+**反例:**
 
 ```ts
 function fibonacci(n: number): number[] {
@@ -1016,7 +1004,7 @@ function print(n: number) {
 print(10);
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 // Generates an infinite stream of Fibonacci numbers.
@@ -1063,7 +1051,7 @@ itiriri(fibonacci())
   .forEach(fib => console.log(fib));
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Objects and Data Structures
 
@@ -1079,7 +1067,7 @@ Using getters and setters to access data from objects that encapsulate behavior 
 - Easy to add logging and error handling when getting and setting.
 - You can lazy load your object's properties, let's say getting it from a server.
 
-**Bad:**
+**反例:**
 
 ```ts
 type BankAccount = {
@@ -1100,7 +1088,7 @@ if (value < 0) {
 account.balance = value;
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class BankAccount {
@@ -1129,13 +1117,13 @@ const account = new BankAccount();
 account.balance = 100;
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Make objects have private/protected members
 
 TypeScript supports `public` *(default)*, `protected` and `private` accessors on class members.  
 
-**Bad:**
+**反例:**
 
 ```ts
 class Circle {
@@ -1155,7 +1143,7 @@ class Circle {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class Circle {
@@ -1172,14 +1160,14 @@ class Circle {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Prefer immutability
 
 TypeScript's type system allows you to mark individual properties on an interface / class as *readonly*. This allows you to work in a functional way (unexpected mutation is bad).  
 For more advanced scenarios there is a built-in type `Readonly` that takes a type `T` and marks all of its properties as readonly using mapped types (see [mapped types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)).
 
-**Bad:**
+**反例:**
 
 ```ts
 interface Config {
@@ -1189,7 +1177,7 @@ interface Config {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 interface Config {
@@ -1199,14 +1187,14 @@ interface Config {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### type vs. interface
 
 Use type when you might need a union or intersection. Use interface when you want `extends` or `implements`. There is no strict rule however, use the one that works for you.  
 For a more detailed explanation refer to this [answer](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) about the differences between `type` and `interface` in TypeScript.
 
-**Bad:**
+**反例:**
 
 ```ts
 interface EmailConfig {
@@ -1228,7 +1216,7 @@ type Shape = {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 
@@ -1257,7 +1245,7 @@ class Square implements Shape {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Classes
 
@@ -1265,7 +1253,7 @@ class Square implements Shape {
 
 The class' size is measured by it's responsibility. Following the *Single Responsibility principle* a class should be small.
 
-**Bad:**
+**反例:**
 
 ```ts
 class Dashboard {
@@ -1288,7 +1276,7 @@ class Dashboard {
 
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class Dashboard {
@@ -1301,7 +1289,7 @@ class Dashboard {
 // ...
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### High cohesion and low coupling
 
@@ -1312,11 +1300,11 @@ Coupling refers to how related or dependent are two classes toward each other. C
   
 Good software design has **high cohesion** and **low coupling**.
 
-**Bad:**
+**反例:**
 
 ```ts
 class UserManager {
-  // Bad: each private variable is used by one or another group of methods.
+  // 反例: each private variable is used by one or another group of methods.
   // It makes clear evidence that the class is holding more than a single responsibility.
   // If I need only to create the service to get the transactions for a user,
   // I'm still forced to pass and instance of `emailSender`.
@@ -1347,7 +1335,7 @@ class UserManager {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class UserService {
@@ -1381,7 +1369,7 @@ class UserNotifier {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Prefer composition over inheritance
 
@@ -1395,7 +1383,7 @@ You might be wondering then, "when should I use inheritance?" It depends on your
 
 3. You want to make global changes to derived classes by changing a base class. (Change the caloric expenditure of all animals when they move).
 
-**Bad:**
+**反例:**
 
 ```ts
 class Employee {
@@ -1421,7 +1409,7 @@ class EmployeeTaxData extends Employee {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class Employee {
@@ -1450,13 +1438,13 @@ class EmployeeTaxData {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Use method chaining
 
 This pattern is very useful and commonly used in many libraries. It allows your code to be expressive, and less verbose. For that reason, use method chaining and take a look at how clean your code will be.
 
-**Bad:**
+**反例:**
 
 ```ts
 class QueryBuilder {
@@ -1493,7 +1481,7 @@ queryBuilder.orderBy('firstName', 'lastName');
 const query = queryBuilder.build();
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class QueryBuilder {
@@ -1532,7 +1520,7 @@ const query = new QueryBuilder()
   .build();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## SOLID
 
@@ -1540,7 +1528,7 @@ const query = new QueryBuilder()
 
 As stated in Clean Code, "There should never be more than one reason for a class to change". It's tempting to jam-pack a class with a lot of functionality, like when you can only take one suitcase on your flight. The issue with this is that your class won't be conceptually cohesive and it will give it many reasons to change. Minimizing the amount of times you need to change a class is important. It's important because if too much functionality is in one class and you modify a piece of it, it can be difficult to understand how that will affect other dependent modules in your codebase.
 
-**Bad:**
+**反例:**
 
 ```ts
 class UserSettings {
@@ -1559,7 +1547,7 @@ class UserSettings {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class UserAuth {
@@ -1587,13 +1575,13 @@ class UserSettings {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Open/Closed Principle (OCP)
 
 As stated by Bertrand Meyer, "software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification." What does that mean though? This principle basically states that you should allow users to add new functionalities without changing existing code.
 
-**Bad:**
+**反例:**
 
 ```ts
 class AjaxAdapter extends Adapter {
@@ -1636,7 +1624,7 @@ function makeHttpCall<T>(url: string): Promise<T> {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 abstract class Adapter {
@@ -1680,7 +1668,7 @@ class HttpRequester {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Liskov Substitution Principle (LSP)
 
@@ -1688,7 +1676,7 @@ This is a scary term for a very simple concept. It's formally defined as "If S i
   
 The best explanation for this is if you have a parent class and a child class, then the base class and child class can be used interchangeably without getting incorrect results. This might still be confusing, so let's take a look at the classic Square-Rectangle example. Mathematically, a square is a rectangle, but if you model it using the "is-a" relationship via inheritance, you quickly get into trouble.
 
-**Bad:**
+**反例:**
 
 ```ts
 class Rectangle {
@@ -1740,7 +1728,7 @@ function renderLargeRectangles(rectangles: Rectangle[]) {
     const area = rectangle
       .setWidth(4)
       .setHeight(5)
-      .getArea(); // BAD: Returns 25 for Square. Should be 20.
+      .getArea(); // 反例: Returns 25 for Square. Should be 20.
     rectangle.render(area);
   });
 }
@@ -1749,7 +1737,7 @@ const rectangles = [new Rectangle(), new Rectangle(), new Square()];
 renderLargeRectangles(rectangles);
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 abstract class Shape {
@@ -1797,14 +1785,14 @@ const shapes = [new Rectangle(4, 5), new Rectangle(4, 5), new Square(5)];
 renderLargeShapes(shapes);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Interface Segregation Principle (ISP)
 
 ISP states that "Clients should not be forced to depend upon interfaces that they do not use.". This principle is very much related to the Single Responsibility Principle.
 What it really means is that you should always design your abstractions in a way that the clients that are using the exposed methods do not get the whole pie instead. That also include imposing the clients with the burden of implementing methods that they don’t actually need.
 
-**Bad:**
+**反例:**
 
 ```ts
 interface SmartPrinter {
@@ -1842,7 +1830,7 @@ class EconomicPrinter implements SmartPrinter {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 interface Printer {
@@ -1878,7 +1866,7 @@ class EconomicPrinter implements Printer {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Dependency Inversion Principle (DIP)
 
@@ -1892,7 +1880,7 @@ This can be hard to understand at first, but if you've worked with Angular, you'
   
 DIP is usually achieved by a using an inversion of control (IoC) container. An example of a powerful IoC container for TypeScript is [InversifyJs](https://www.npmjs.com/package/inversify)
 
-**Bad:**
+**反例:**
 
 ```ts
 import { readFile as readFileCb } from 'fs';
@@ -1912,7 +1900,7 @@ class XmlFormatter {
 
 class ReportReader {
 
-  // BAD: We have created a dependency on a specific request implementation.
+  // 反例: We have created a dependency on a specific request implementation.
   // We should just have ReportReader depend on a parse method: `parse`
   private readonly formatter = new XmlFormatter();
 
@@ -1927,7 +1915,7 @@ const reader = new ReportReader();
 await report = await reader.read('report.xml');
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 import { readFile as readFileCb } from 'fs';
@@ -1975,7 +1963,7 @@ const reader = new ReportReader(new JsonFormatter());
 await report = await reader.read('report.json');
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Testing
 
@@ -1993,7 +1981,7 @@ There's no excuse to not write tests. There are [plenty of good JS test framewor
 
 3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### F.I.R.S.T. rules
 
@@ -2009,13 +1997,13 @@ Clean tests should follow the rules:
 
 - **Timely** unit tests should be written before the production code. If you write tests after the production code, you might find writing tests too hard.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Single concept per test
 
 Tests should also follow the *Single Responsibility Principle*. Make only one assert per unit test.
 
-**Bad:**
+**反例:**
 
 ```ts
 import { assert } from 'chai';
@@ -2036,7 +2024,7 @@ describe('AwesomeDate', () => {
 });
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 import { assert } from 'chai';
@@ -2059,13 +2047,13 @@ describe('AwesomeDate', () => {
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### The name of the test should reveal it's intention
 
 When a test fail, it's name is the first indication of what may have gone wrong.
 
-**Bad:**
+**反例:**
 
 ```ts
 describe('Calendar', () => {
@@ -2079,7 +2067,7 @@ describe('Calendar', () => {
 });
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 describe('Calendar', () => {
@@ -2093,7 +2081,7 @@ describe('Calendar', () => {
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Concurrency
 
@@ -2103,7 +2091,7 @@ Callbacks aren't clean, and they cause excessive amounts of nesting *(the callba
 There are utilities that transform existing functions using the callback style to a version that returns promises
 (for Node.js see [`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original), for general purpose see [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify))
 
-**Bad:**
+**反例:**
 
 ```ts
 import { get } from 'request';
@@ -2134,7 +2122,7 @@ downloadPage('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', 'article.html'
 });
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 import { get } from 'request';
@@ -2164,13 +2152,13 @@ Promises supports a few helper methods that help make code more conscise:
 
 `Promise.all` is especially useful when there is a need to run tasks in parallel. `Promise.race` makes it easier to implement things like timeouts for promises.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Async/Await are even cleaner than Promises
 
 With `async`/`await` syntax you can write code that is far cleaner and more understandable that chained promises. Within a function prefixed with `async` keyword you have a way to tell the JavaScript runtime to pause the execution of code on the `await` keyword (when used on a promise).
 
-**Bad:**
+**反例:**
 
 ```ts
 import { get } from 'request';
@@ -2188,7 +2176,7 @@ downloadPage('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', 'article.html'
   .catch(error => console.error(error));  
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 import { get } from 'request';
@@ -2212,7 +2200,7 @@ try {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Error Handling
 
@@ -2227,7 +2215,7 @@ It would be very confusing to catch a string message there and would make
 [debugging more painful](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error).  
 For the same reason you should reject promises with `Error` types.
 
-**Bad:**
+**反例:**
 
 ```ts
 function calculateTotal(items: Item[]): number {
@@ -2239,7 +2227,7 @@ function get(): Promise<Item[]> {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function calculateTotal(items: Item[]): number {
@@ -2279,13 +2267,13 @@ function calculateTotal(items: Item[]): Failable<number, 'empty'> {
 
 For the detailed explanation of this idea refer to the [original post](https://medium.com/@dhruvrajvanshi/making-exceptions-type-safe-in-typescript-c4d200ee78e9).
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't ignore caught errors
 
 Doing nothing with a caught error doesn't give you the ability to ever fix or react to said error. Logging the error to the console (`console.log`) isn't much better as often times it can get lost in a sea of things printed to the console. If you wrap any bit of code in a `try/catch` it means you think an error may occur there and therefore you should have a plan, or create a code path, for when it occurs.
 
-**Bad:**
+**反例:**
 
 ```ts
 try {
@@ -2303,7 +2291,7 @@ try {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 import { logger } from './logging'
@@ -2315,13 +2303,13 @@ try {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't ignore rejected promises
 
 For the same reason you shouldn't ignore caught errors from `try/catch`.
 
-**Bad:**
+**反例:**
 
 ```ts
 getUser()
@@ -2333,7 +2321,7 @@ getUser()
   });
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 import { logger } from './logging'
@@ -2356,7 +2344,7 @@ try {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Formatting
 
@@ -2384,7 +2372,7 @@ Refer also to this great [TypeScript StyleGuide and Coding Conventions](https://
 
 Capitalization tells you a lot about your variables, functions, etc. These rules are subjective, so your team can choose whatever they want. The point is, no matter what you all choose, just *be consistent*.
 
-**Bad:**
+**反例:**
 
 ```ts
 const DAYS_IN_WEEK = 7;
@@ -2400,7 +2388,7 @@ type animal = { /* ... */ }
 type Container = { /* ... */ }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 const DAYS_IN_WEEK = 7;
@@ -2419,14 +2407,14 @@ type Container = { /* ... */ }
 Prefer using `PascalCase` for class, interface, type and namespace names.  
 Prefer using `camelCase` for variables, functions and class members.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Function callers and callees should be close
 
 If a function calls another, keep those functions vertically close in the source file. Ideally, keep the caller right above the callee.
 We tend to read code from top-to-bottom, like a newspaper. Because of this, make your code read that way.
 
-**Bad:**
+**反例:**
 
 ```ts
 class PerformanceReview {
@@ -2467,7 +2455,7 @@ const review = new PerformanceReview(employee);
 review.review();
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class PerformanceReview {
@@ -2508,7 +2496,7 @@ const review = new PerformanceReview(employee);
 review.review();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Organize imports
 
@@ -2527,7 +2515,7 @@ With clean and easy to read import statements you can quickly see the dependenci
   - modules from a parent directory (i.e. `import foo from '../foo'; import qux from '../../foo/qux';`)
   - modules from the same or a sibling's directory (i.e. `import bar from './bar'; import baz from './bar/baz';`)
 
-**Bad:**
+**反例:**
 
 ```ts
 import { TypeDefinition } from '../types/typeDefinition';
@@ -2539,7 +2527,7 @@ import { BindingScopeEnum, Container } from 'inversify';
 import 'reflect-metadata';
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 import 'reflect-metadata';
@@ -2554,7 +2542,7 @@ import { ApiCredentials, Adapters } from './common/api/authorization';
 import { ConfigPlugin } from './plugins/config/configPlugin';
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Use typescript aliases
 
@@ -2562,13 +2550,13 @@ Create prettier imports by defining the paths and baseUrl properties in the comp
 
 This will avoid long relative paths when doing imports.
 
-**Bad:**
+**反例:**
 
 ```ts
 import { UserService } from '../../../services/UserService';
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 import { UserService } from '@services/UserService';
@@ -2588,7 +2576,7 @@ import { UserService } from '@services/UserService';
 ...
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Comments
 
@@ -2601,27 +2589,27 @@ The use of a comments is an indication of failure to express without them. Code 
 
 Comments are an apology, not a requirement. Good code *mostly* documents itself.
 
-**Bad:**
+**反例:**
 
 ```ts
 // Check if subscription is active.
 if (subscription.endDate > Date.now) {  }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 const isSubscriptionActive = subscription.endDate > Date.now;
 if (isSubscriptionActive) { /* ... */ }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't leave commented out code in your codebase
 
 Version control exists for a reason. Leave old code in your history.
 
-**Bad:**
+**反例:**
 
 ```ts
 type User = {
@@ -2632,7 +2620,7 @@ type User = {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 type User = {
@@ -2641,13 +2629,13 @@ type User = {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't have journal comments
 
 Remember, use version control! There's no need for dead code, commented code, and especially journal comments. Use `git log` to get history!
 
-**Bad:**
+**反例:**
 
 ```ts
 /**
@@ -2661,7 +2649,7 @@ function combine(a: number, b: number): number {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function combine(a: number, b: number): number {
@@ -2669,14 +2657,14 @@ function combine(a: number, b: number): number {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid positional markers
 
 They usually just add noise. Let the functions and variable names along with the proper indentation and formatting give the visual structure to your code.  
 Most IDE support code folding feature that allows you to collapse/expand blocks of code (see Visual Studio Code [folding regions](https://code.visualstudio.com/updates/v1_17#_folding-regions)).
 
-**Bad:**
+**反例:**
 
 ```ts
 ////////////////////////////////////////////////////////////////////////////////
@@ -2708,7 +2696,7 @@ class Client {
 };
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 class Client {
@@ -2731,7 +2719,7 @@ class Client {
 };
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### TODO comments
 
@@ -2741,7 +2729,7 @@ you can quickly go over the entire list of todos.
 
 Keep in mind however that a *TODO* comment is not an excuse for bad code. 
 
-**Bad:**
+**反例:**
 
 ```ts
 function getActiveSubscriptions(): Promise<Subscription[]> {
@@ -2750,7 +2738,7 @@ function getActiveSubscriptions(): Promise<Subscription[]> {
 }
 ```
 
-**Good:**
+**正例:**
 
 ```ts
 function getActiveSubscriptions(): Promise<Subscription[]> {
@@ -2759,7 +2747,7 @@ function getActiveSubscriptions(): Promise<Subscription[]> {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Translations
 
