@@ -7,7 +7,7 @@
 
   1. [介绍](#介绍)
   2. [变量](#变量)
-  3. [Functions](#functions)
+  3. [函数](#函数)
   4. [Objects and Data Structures](#objects-and-data-structures)
   5. [Classes](#classes)
   6. [SOLID](#solid)
@@ -231,7 +231,7 @@ function loadPages(count: number = 10) {
 
 **[⬆ 返回顶部](#目录)**
 
-## Functions
+## 函数
 
 ### Function arguments (2 or fewer ideally)
 
