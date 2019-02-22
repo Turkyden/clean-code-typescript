@@ -32,7 +32,7 @@ you shout when reading code](https://www.osnews.com/images/comics/wtfm.jpg)
 
 我们的软件工程技术只有50多年的历史，我们还有很多东西需要学习。当软件架构与架构本身一样古老时，也许那时我们会有更难遵循的规则。现在，让这些指导方针作为一个试金石，用来评估您和您的团队所生成的 Typescript 代码的质量.
 
-除此之外：知道这些并不会立即使你成为一个更好的软件开发者，这些规则伴随你工作多年后并不意味着你就不会犯错误了。每一段代码都是作为初稿开始的，就像湿粘土被塑造成最终形状一样。最终，当我们与小伙伴们一起审查时，我们会凿掉不完美之处。不要因为这些需要改进的初稿而阻碍自己技术的提升。先干掉代码吧！
+除此之外：知道这些并不会立即使你成为一个更好的软件开发者，这些规则伴随你工作多年后并不意味着你就不会犯错误了。每一段代码都是作为初稿开始的，就像湿粘土被塑造成最终形状一样。最终，当我们与小伙伴们一起审查时，我们会凿掉不完美之处。不要因为这些需要改进的初稿而阻碍自己技术的提升。先干掉代码再说吧！
 
 **[⬆ 返回顶部](#目录)**
 
@@ -233,25 +233,24 @@ function loadPages(count: number = 10) {
 
 ## 函数
 
-### Function arguments (2 or fewer ideally)
+### 函数参数（理想情况下为 2 个或更少）
 
-Limiting the amount of function parameters is incredibly important because it makes testing your function easier.
-Having more than three leads to a combinatorial explosion where you have to test tons of different cases with each separate argument.  
+限制函数参数的数量非常重要，因为它使您的功能测试更容易。
+超过三个导致组合爆炸，导致你必须用每个单独的参数测试大量不同的情况。
 
-One or two arguments is the ideal case, and three should be avoided if possible. Anything more than that should be consolidated.
-Usually, if you have more than two arguments then your function is trying to do too much.
-In cases where it's not, most of the time a higher-level object will suffice as an argument.  
+一个或两个参数是理想的情况，如果可能的话应该避免三个。应该整合除此之外的任何东西。
+通常情况下，如果你有超过两个参数那么就是你的函数想要做的事情太多了。如果不是，大多数情况下，更高级别的对象就足以作为参数。
 
-Consider using object literals if you are finding yourself needing a lot of arguments.  
+如果您发现自己需要大量参数，请考虑使用对象字面量。
 
-To make it obvious what properties the function expects, you can use the [destructuring](https://basarat.gitbooks.io/typescript/docs/destructuring.html) syntax.
-This has a few advantages:
+为了明确函数所期望的属性，你可以使用 [解构](https://basarat.gitbooks.io/typescript/docs/destructuring.html) 语法.
+他有以下几个优点:
 
-1. When someone looks at the function signature, it's immediately clear what properties are being used.
+1. 当有人查看函数名称时，会立即清楚正在使用的属性。
 
-2. Destructuring also clones the specified primitive values of the argument object passed into the function. This can help prevent side effects. Note: objects and arrays that are destructured from the argument object are NOT cloned.
+2. 解构并克隆参数对象中的指定原始值传递给函数。这有助于预防副作用。注：不会克隆从参数对象中解构的对象和数组。
 
-3. TypeScript warns you about unused properties, which would be impossible without destructuring.
+3. TypeScript 会警告您未使用的属性，如果没有解构，这将是不可能的。
 
 **反例:**
 
@@ -298,9 +297,9 @@ createMenu({
 
 **[⬆ 返回顶部](#目录)**
 
-### Functions should do one thing
+### 函数应该只做一件事情
 
-This is by far the most important rule in software engineering. When functions do more than one thing, they are harder to compose, test, and reason about. When you can isolate a function to just one action, they can be refactored easily and your code will read much cleaner. If you take nothing else away from this guide other than this, you'll be ahead of many developers.
+这是迄今为止软件工程中最重要的规则。当函数执行多个操作时，它们更难以编写，测试和推断。 当您可以将一个函数隔离成一个动作时，它们便可以轻松被重构，您的代码将更清晰。遵守这一法则，如果你没有其他错误，那么你将领先于许多开发者。
 
 **反例:**
 
@@ -330,7 +329,7 @@ function isActiveClient(client: Client) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Function names should say what they do
+### 函数名称应该说明它们的作用
 
 **反例:**
 
@@ -341,7 +340,7 @@ function addToDate(date: Date, month: number): Date {
 
 const date = new Date();
 
-// It's hard to tell from the function name what is added
+// 从函数名称很难分辨出新增了什么
 addToDate(date, 1);
 ```
 
@@ -358,9 +357,9 @@ addMonthToDate(date, 1);
 
 **[⬆ 返回顶部](#目录)**
 
-### Functions should only be one level of abstraction
+### 函数应该只抽象一层
 
-When you have more than one level of abstraction your function is usually doing too much. Splitting up functions leads to reusability and easier testing.
+当你有多个抽象级别时，你的函数通常做太多事情了。拆分功能可以实现可重用性和更轻松的测试。
 
 **反例:**
 
@@ -426,18 +425,15 @@ function parse(tokens: Token[]): SyntaxTree {
 
 **[⬆ 返回顶部](#目录)**
 
-### Remove duplicate code
+### 删除重复代码
 
-Do your absolute best to avoid duplicate code.
-Duplicate code is bad because it means that there's more than one place to alter something if you need to change some logic.  
+尽你最大努力去避免重复的代码。重复代码很糟糕，因为这意味着如果需要更改某些逻辑，则需要更改多个地方的内容。
 
-Imagine if you run a restaurant and you keep track of your inventory: all your tomatoes, onions, garlic, spices, etc.
-If you have multiple lists that you keep this on, then all have to be updated when you serve a dish with tomatoes in them.
-If you only have one list, there's only one place to update!  
+想象一下如果你经营一家餐馆，并跟踪你的存货：你所有的番茄，洋葱，大蒜，香料等。如果你有多个清单记录他们，那么当你端上一道菜时，所有的清单都必须更新。当你端上一盘西红柿时。如果只有一个列表，那么只有一个地方需要更新！
 
-Oftentimes you have duplicate code because you have two or more slightly different things, that share a lot in common, but their differences force you to have two or more separate functions that do much of the same things. Removing duplicate code means creating an abstraction that can handle this set of different things with just one function/module/class.  
+通常，您有重复的代码，因为您有两个或多个稍微不同的地方，他们虽然有很多共同点，但是它们的不同迫使你有两个或更多的独立的功能来做很多相同的事情。删除重复的代码意味着创建一个抽象，只需一个函数/模块/类就可以处理这组不同的事情。
 
-Getting the abstraction right is critical, that's why you should follow the [SOLID](#solid) principles. Bad abstractions can be worse than duplicate code, so be careful! Having said this, if you can make a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself updating multiple places anytime you want to change one thing.
+正确的抽象是至关重要的，这就是为什么要遵循 [SOLID](#solid) 原则。糟糕的抽象甚至比重复的代码更差劲，所以请你一定要认真对待！说到这里，如果你能做出比较好的抽象，那就大胆抽象吧！不要做重复工作，否则终有一天你会发现需要更改多个地方而仅仅只是为了改变一点东西。
 
 **反例:**
 
@@ -513,11 +509,11 @@ function showEmployeeList(employee: Developer | Manager) {
 }
 ```
 
-You should be critical about code duplication. Sometimes there is a tradeoff between duplicated code and increased complexity by introducing unnecessary abstraction. When two implementations from two different modules look similar but live in different domains, duplication might be acceptable and preferred over extracting the common code. The extracted common code in this case introduces an indirect dependency between the two modules.
+你应该对复制出来的代码持批评的态度。有时我们需要在冗余代码与通过引入不必要的抽象导致复杂度增加之间进行权衡。当来自两个不同模块的两个实现看起来相似但存在于不同的领域中时，复制也许是可以接受的，并且比提取公共代码更可取。在这种情况下，提取出来的公共代码在两个模块之间引入了间接依赖关系。
 
 **[⬆ 返回顶部](#目录)**
 
-### Set default objects with Object.assign or destructuring
+### 使用 Object.assign 或者析构来设置默认对象
 
 **反例:**
 
@@ -555,7 +551,7 @@ function createMenu(config: MenuConfig) {
 createMenu({ body: 'Bar' });
 ```
 
-Alternatively, you can use destructuring with default values:
+或者，可以使用具有默认值的析构函数：
 
 ```ts
 type MenuConfig = { title?: string, body?: string, buttonText?: string, cancellable?: boolean };
@@ -567,15 +563,13 @@ function createMenu({ title = 'Foo', body = 'Bar', buttonText = 'Baz', cancellab
 createMenu({ body: 'Bar' });
 ```
 
-To avoid any side effects and unexpected behavior by passing in explicitly the `undefined` or `null` value, you can tell the TypeScript compiler to not allow it.
-See [`--strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks) option in TypeScript.
+通过显示传递 `undefined` or `null` 这些值，能够避免副作用和一些不可预知的行为，你可以告诉 TypeScript 编译器去避免这种情况发生。详情请查看 [`--strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks) TypeScript 中的配置项。
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't use flags as function parameters
+### 不要使用 Flags 作为函数参数
 
-Flags tell your user that this function does more than one thing.
-Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+Flags 告诉别人这个函数干了多件事情。而一个函数应该只做一件事。如果他们基于布尔值来决定不同的代码逻辑分支，那么请拆分你的函数吧。
 
 **反例:**
 
@@ -603,31 +597,28 @@ function createFile(name: string) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid Side Effects (part 1)
+### 避免副作用（第一部分）
 
-A function produces a side effect if it does anything other than take a value in and return another value or values.
-A side effect could be writing to a file, modifying some global variable, or accidentally wiring all your money to a stranger.  
+如果函数执行的操作不是获取一个值并返回另一个或多个值，则会产生副作用。副作用可能是写入文件、修改某个全局变量，或者意外地将所有钱转到陌生人那里。
 
-Now, you do need to have side effects in a program on occasion. Like the previous example, you might need to write to a file.
-What you want to do is to centralize where you are doing this. Don't have several functions and classes that write to a particular file.
-Have one service that does it. One and only one.  
+现在，你时常需要在程序中产生副作用。像前面的例子一样，您可能需要写入一个文件。你要做的就是集中精力做这些事情。不要使用多个函数和类来写入特定文件。他只实现一个功能。仅仅只有一个。
 
-The main point is to avoid common pitfalls like sharing state between objects without any structure, using mutable data types that can be written to by anything, and not centralizing where your side effects occur. If you can do this, you will be happier than the vast majority of other programmers.
+主要是为了避免在没有任何结构的对象之间共享状态这样的常见陷阱，使用任何东西都可以写入的可变数据类型，而不是集中在副作用发生的地方。如果你能做到这一点，你将比绝大多数其他程序员厉害。
 
 **反例:**
 
 ```ts
-// Global variable referenced by following function.
+// 与下面函数相关的全局变量
 let name = 'Robert C. Martin';
 
 function toBase64() {
   name = btoa(name);
 }
 
-toBase64();
-// If we had another function that used this name, now it'd be a Base64 value
+toBase64(); 
+// 如果我们有另一个使用这个名称的函数，现在它将是base64值
 
-console.log(name); // expected to print 'Robert C. Martin' but instead 'Um9iZXJ0IEMuIE1hcnRpbg=='
+console.log(name); // 希望打印出 'Robert C. Martin' 但却打印出了 'Um9iZXJ0IEMuIE1hcnRpbg=='
 ```
 
 **正例:**
@@ -645,19 +636,19 @@ console.log(name);
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid Side Effects (part 2)
+### 避免副作用（第二部分）
 
-In JavaScript, primitives are passed by value and objects/arrays are passed by reference. In the case of objects and arrays, if your function makes a change in a shopping cart array, for example, by adding an item to purchase, then any other function that uses that `cart` array will be affected by this addition. That may be great, however it can be bad too. Let's imagine a bad situation:  
+在 JavaScript 中，元组通过值传递，对象/数组通过引用传递。比如对象和数组，如果你的函数改变了购物车数组，例如，通过新增元素去购买，然后任何其他使用到 `cart` 数组的函数将受到增加的影响。这可能很棒，但是同样很糟糕。让我们想象一下这样一个糟糕的场景：
 
-The user clicks the "Purchase", button which calls a `purchase` function that spawns a network request and sends the `cart` array to the server. Because of a bad network connection, the purchase function has to keep retrying the request. Now, what if in the meantime the user accidentally clicks "Add to Cart" button on an item they don't actually want before the network request begins? If that happens and the network request begins, then that purchase function will send the accidentally added item because it has a reference to a shopping cart array that the `addItemToCart` function modified by adding an unwanted item.  
+用户点击 “购买” 按钮，这个按钮将调用 `purchase` 函数生成网络请求并将 `cart` 数组发送到服务器。因为网络连接错误，这个 purchase 函数不得不继续重试链接请求。现在，如果同时用户在网络请求开始之前意外地点击了他们实际上不想要的条目上的 “添加到购物车” 按钮，该怎么办呢？如果发生这种情况，并且网络请求开始了，这个 purchase 函数将会发送意外新增的条目，因为它引用了一个购物车数组，这个数组通过增加不想要的条目来对 `addItemToCart` 函数进行修改。
 
-A great solution would be for the `addItemToCart` to always clone the `cart`, edit it, and return the clone. This ensures that no other functions that are holding onto a reference of the shopping cart will be affected by any changes.  
+一个好的解决方案是让 `addItemToCart` 函数总是克隆 `cart`，修改它，然后返回克隆副本。这样可以确保保存在购物车引用上的其他功能不会受到任何改动影响。
 
-Two caveats to mention to this approach:
+关于这种方法有两个注意事项：
 
-1. There might be cases where you actually want to modify the input object, but when you adopt this programming practice you will find that those cases are pretty rare. Most things can be refactored to have no side effects! (see [pure function](https://en.wikipedia.org/wiki/Pure_function))
+1. 在某些情况下，您可能实际上想要修改输入对象，但是当您采用这种编程实践时，您会发现这些情况非常罕见。大多数东西都可以重构，没有副作用！ (详情请看 [pure function](https://en.wikipedia.org/wiki/Pure_function))
 
-2. Cloning big objects can be very expensive in terms of performance. Luckily, this isn't a big issue in practice because there are great libraries that allow this kind of programming approach to be fast and not as memory intensive as it would be for you to manually clone objects and arrays.
+2. 克隆大型对象的性能可能非常昂贵。幸运的是，这在实践中并不是一个大问题，因为有很多优秀的库允许这种编程方法快速，而不像手动克隆对象和数组那样占用大量内存。
 
 **反例:**
 
