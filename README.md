@@ -1,6 +1,7 @@
 # Typescript 代码整洁之道 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Clean%20Code%20Typescript&url=https://github.com/labs42io/clean-code-typescript)
 
-适用于 Typescript 的代码整洁之道。
+适用于 Typescript 的代码整洁之道
+
 受到 [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) 的启发。
 
 ## 目录
@@ -8,7 +9,7 @@
   1. [介绍](#介绍)
   2. [变量](#变量)
   3. [函数](#函数)
-  4. [Objects and Data Structures](#objects-and-data-structures)
+  4. [对象与数据结构](#对象与数据结构)
   5. [Classes](#classes)
   6. [SOLID](#solid)
   7. [Testing](#testing)
@@ -668,9 +669,9 @@ function addItemToCart(cart: CartItem[], item: Item): CartItem[] {
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't write to global functions
+### 不要写入全局函数
 
-Polluting globals is a bad practice in JavaScript because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to extend JavaScript's native Array method to have a `diff` method that could show the difference between two arrays? You could write your new function to the `Array.prototype`, but it could clash with another library that tried to do the same thing. What if that other library was just using `diff` to find the difference between the first and last elements of an array? This is why it would be much better to just use classes and simply extend the `Array` global.
+在 JavaScript 中，污染全局是一种糟糕的做法，因为您可能会与另一个库发生冲突，而您的 API 用户在生产中遇到异常之前也是一脸茫然毫无觉察的。让我们来思考一下这个例子：如果你想拓展 JavaScript 的原生数组新增一个方法 `diff`，用来对比两个数组之间的不同，那如何处理呢？你可能会在 `Array.prototype` 上写一个新的原型函数，但他可能会与其他尝试做相同事情的插件库发生冲突。如果其他库仅仅使用 `diff` 去查找数组中第一个元素和最后一个元素之间的差异呢？这就是为什么只使用类并简单地扩展 `Array` 会比全局会更好的原因。
 
 **反例:**
 
@@ -702,9 +703,9 @@ class MyArray<T> extends Array<T> {
 
 **[⬆ 返回顶部](#目录)**
 
-### Favor functional programming over imperative programming
+### 优先使用函数式编程而不是命令式编程
 
-Favor this style of programming when you can.
+尽可能支持这种编程风格。
 
 **反例:**
 
@@ -757,7 +758,7 @@ const totalOutput = contributions
 
 **[⬆ 返回顶部](#目录)**
 
-### Encapsulate conditionals
+### 封装条件语句
 
 **反例:**
 
@@ -781,7 +782,7 @@ if (canActivateService(subscription, account)) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid negative conditionals
+### 避免负条件
 
 **反例:**
 
@@ -809,9 +810,9 @@ if (!isEmailUsed(node)) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid conditionals
+### 避免条件语句
 
-This seems like an impossible task. Upon first hearing this, most people say, "how am I supposed to do anything without an `if` statement?" The answer is that you can use polymorphism to achieve the same task in many cases. The second question is usually, "well that's great but why would I want to do that?" The answer is a previous clean code concept we learned: a function should only do one thing. When you have classes and functions that have `if` statements, you are telling your user that your function does more than one thing. Remember, just do one thing.
+这似乎是一项不可能完成的任务。大多数人第一次听到这个，就说，“如果没有 `if` 语句那如何表达我想要做的事呢？” 答案是，在许多情况下，您可以使用多态性来实现相同的任务。第二个问题通常是，“很好，但我为什么要这么做？” 答案是我们以前学到的一个代码整洁之道：一个函数应该只做一件事情。当你在类或者函数中有 `if` 的表达时，你就是在告诉你的用户你的函数干了不少于一件事情。记住，只干一件事。
 
 **反例:**
 
@@ -874,11 +875,9 @@ class Cessna extends Airplane {
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid type checking
+### 避免类型检测
 
-TypeScript is a strict syntactical superset of JavaScript and adds optional static type checking to the language.
-Always prefer to specify types of variables, parameters and return values to leverage the full power of TypeScript features.
-It makes refactoring more easier.
+TypeScript 是一个严格的 JavaScript语法超集，它为语言添加了可选的静态类型检查。总是喜欢指定变量、参数和返回值的类型，以充分利用 TypeScript 的全部功能。它使重构更加容易。
 
 **反例:**
 
@@ -904,15 +903,15 @@ function travelToTexas(vehicle: Vehicle) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't over-optimize
+### 不要过度优化
 
-Modern browsers do a lot of optimization under-the-hood at runtime. A lot of times, if you are optimizing then you are just wasting your time. There are good [resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers) for seeing where optimization is lacking. Target those in the meantime, until they are fixed if they can be.
+现代浏览器在运行时会在引擎底层进行很多优化。很多时候，如果你在优化，那么你只是在浪费时间。这里有一个很好的[资源](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)可以看到缺乏优化的地方。同时瞄准那些目标，直到他们被修复。
 
 **反例:**
 
 ```ts
-// On old browsers, each iteration with uncached `list.length` would be costly
-// because of `list.length` recomputation. In modern browsers, this is optimized.
+// 在旧的浏览器中迭代每一项未固化的 `list.length` 代价是相当昂贵的
+// 因为 `list.length` 重新计算，在现代浏览器中，它已经被优化过了
 for (let i = 0, len = list.length; i < len; i++) {
   // ...
 }
@@ -928,10 +927,9 @@ for (let i = 0; i < list.length; i++) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Remove dead code
+### 移除死代码
 
-Dead code is just as bad as duplicate code. There's no reason to keep it in your codebase.
-If it's not being called, get rid of it! It will still be safe in your version history if you still need it.
+死代码和重复代码一样糟糕。没有理由把它保存在代码库中。如果没有地方调用它，就把它扔掉！如果您仍然需要它，它在您的版本历史中仍然是安全的。
 
 **反例:**
 
@@ -961,16 +959,16 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 
 **[⬆ 返回顶部](#目录)**
 
-### Use iterators and generators
+### 使用迭代器和生成器
 
-Use generators and iterables when working with collections of data used like a stream.  
-There are some good reasons:
+使用生成器和iterables处理像流一样使用的数据集合。
 
-- decouples the callee from the generator implementation in a sense that callee decides how many
-items to access
-- lazy execution, items are streamed on demand
-- built-in support for iterating items using the `for-of` syntax
-- iterables allow to implement optimized iterator patterns
+这里有几个好处：
+
+- 在被调用方决定要访问多少项的意义上，将被调用方与生成器实现分离
+- 延迟执行，按需传输项目
+- 使用 `for of` 语法迭代项的内置支持
+- iterables 允许实现优化的迭代器模式
 
 **反例:**
 
@@ -991,15 +989,15 @@ function print(n: number) {
   fibonacci(n).forEach(fib => console.log(fib));
 }
 
-// Print first 10 Fibonacci numbers.
+// 打印 10 个斐波那契数列
 print(10);
 ```
 
 **正例:**
 
 ```ts
-// Generates an infinite stream of Fibonacci numbers.
-// The generator doesn't keep the array of all numbers.
+// 生成无穷多的斐波那契数流。
+// 生成器不保留所有数字的数组。
 function* fibonacci(): IterableIterator<number> {
   let [a, b] = [0, 1];
 
@@ -1017,13 +1015,11 @@ function print(n: number) {
   }  
 }
 
-// Print first 10 Fibonacci numbers.
+// 打印 10 个斐波那契数列
 print(10);
 ```
 
-There are libraries that allow working with iterables in a similar way as with native arrays, by
-chaining methods like `map`, `slice`, `forEach` etc. See [itiriri](https://www.npmjs.com/package/itiriri) for
-an example of advanced manipulation with iterables (or [itiriri-async](https://www.npmjs.com/package/itiriri-async) for manipulation of async iterables).
+有些库允许以与本机数组类似的方式使用 iterables，通过像 `map`，`slice`，`forEach` 等等这些链式方法。请看 [itiriri](https://www.npmjs.com/package/itiriri) 中的一个高级操作例子（或者 [itiriri-async](https://www.npmjs.com/package/itiriri-async) 异步 iterables 的操作）
 
 ```ts
 import itiriri from 'itiriri';
@@ -1044,19 +1040,17 @@ itiriri(fibonacci())
 
 **[⬆ 返回顶部](#目录)**
 
-## Objects and Data Structures
+## 对象与数据结构
 
-### Use getters and setters
+### 使用 getters and setters
 
-TypeScript supports getter/setter syntax.
-Using getters and setters to access data from objects that encapsulate behavior could be better that simply looking for a property on an object.
-"Why?" you might ask. Well, here's a list of reasons:
+TypeScript 支持 getter/setter 语法。使用 getter 和 setter 从封装行为的对象访问数据可能比简单地在对象上查找属性要好。“为什么呢？” 你也许会问道。是的，这有如下几个理由：
 
-- When you want to do more beyond getting an object property, you don't have to look up and change every accessor in your codebase.
-- Makes adding validation simple when doing a `set`.
-- Encapsulates the internal representation.
-- Easy to add logging and error handling when getting and setting.
-- You can lazy load your object's properties, let's say getting it from a server.
+- 当您想要做的不仅仅是获得一个对象属性时，您不必查找和更改代码库中的每个访问器。
+- 使添加验证在执行 `set` 时变得简单。
+- 封装内部逻辑。
+- 当 getting 和 setting 时更容易添加日志和报错句柄。
+- 你可以懒加载你的对象属性，比如从服务器获取它。
 
 **反例:**
 
@@ -1073,7 +1067,7 @@ const account: BankAccount = {
 };
 
 if (value < 0) {
-  throw new Error('Cannot set negative balance.');
+  throw new Error('无法设置负余额。');
 }
 
 account.balance = value;
@@ -1091,7 +1085,7 @@ class BankAccount {
 
   set balance(value: number) {
     if (value < 0) {
-      throw new Error('Cannot set negative balance.');
+      throw new Error('无法设置负余额。');
     }
 
     this.accountBalance = value;
@@ -1100,19 +1094,19 @@ class BankAccount {
   // ...
 }
 
-// Now `BankAccount` encapsulates the validation logic.
-// If one day the specifications change, and we need extra validation rule,
-// we would have to alter only the `setter` implementation,
-// leaving all dependent code unchanged.
+// 现在的 `BankAccount` 封装了校验逻辑
+// 如果有一天规格发生变化，我们需要额外的验证规则，
+// 我们只需要更改 `setter` 来实现，
+// 保持所有相关代码不变。
 const account = new BankAccount();
 account.balance = 100;
 ```
 
 **[⬆ 返回顶部](#目录)**
 
-### Make objects have private/protected members
+### 让对象具有 private/protected 前缀的成员变量
 
-TypeScript supports `public` *(default)*, `protected` and `private` accessors on class members.  
+TypeScript 支持 `public` *(default)*, `protected` 和 `private` 访问类的成员。
 
 **反例:**
 
@@ -1153,10 +1147,11 @@ class Circle {
 
 **[⬆ 返回顶部](#目录)**
 
-### Prefer immutability
+### 偏向于使用不变性
 
-TypeScript's type system allows you to mark individual properties on an interface / class as *readonly*. This allows you to work in a functional way (unexpected mutation is bad).  
-For more advanced scenarios there is a built-in type `Readonly` that takes a type `T` and marks all of its properties as readonly using mapped types (see [mapped types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)).
+TypeScript 的类型系统允许你将接口/类上的单个属性标记为 *readonly*。这允许你以一种功能性的方式工作（意想不到的突变总是不好的）。
+
+对于更高级的方案，有一个内置类型，它采用类型 `T`，并使用映射类型将其所有属性标记为只读（请查阅 [mapped types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)）。
 
 **反例:**
 
@@ -1180,10 +1175,12 @@ interface Config {
 
 **[⬆ 返回顶部](#目录)**
 
-### type vs. interface
+### 类型 vs. 接口
 
-Use type when you might need a union or intersection. Use interface when you want `extends` or `implements`. There is no strict rule however, use the one that works for you.  
-For a more detailed explanation refer to this [answer](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) about the differences between `type` and `interface` in TypeScript.
+当你可能需要联合或交叉时你可能需要使用类型。当你西需要`继承`和`实现`时你就使用接口。虽然没有严格的使用规则，但是你至少要选择一个使用。
+
+TypeScript 中类型和接口的不同之处，更多细节请参考[详解](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543)。
+
 
 **反例:**
 
@@ -1238,11 +1235,11 @@ class Square implements Shape {
 
 **[⬆ 返回顶部](#目录)**
 
-## Classes
+## 类
 
-### Classes should be small
+### 类应该尽可能小
 
-The class' size is measured by it's responsibility. Following the *Single Responsibility principle* a class should be small.
+类的大小应该以它的职责为衡量。遵循 *单一职责原则* 一个类应该尽可能的小。
 
 **反例:**
 
@@ -1276,29 +1273,30 @@ class Dashboard {
   getVersion(): string { /* ... */ }
 }
 
-// split the responsibilities by moving the remaining methods to other classes
+// 通过将剩余的方法移动到其他类来划分职责
 // ...
 ```
 
 **[⬆ 返回顶部](#目录)**
 
-### High cohesion and low coupling
+### 高内聚低耦合
 
-Cohesion defines the degree to which class members are related to each other. Ideally, all fields within a class should be used by each method.
-We then say that the class is *maximally cohesive*. In practice, this however is not always possible, nor even advisable. You should however prefer cohesion to be high.  
+内聚性定义了类成员彼此之间的关联程度。理想情况下，每个方法都应该使用类中的所有字段。
 
-Coupling refers to how related or dependent are two classes toward each other. Classes are said to be low coupled if changes in one of them doesn't affect the other one.  
+然后我们说这个类是最大的内聚性。但在实践中，这并不总是可能的，甚至不可取。但是，您应该更喜欢高凝聚力。
+
+耦合是指两个类彼此之间的关联或依赖程度。如果其中一个类中的更改不影响另一个类，则称为低耦合类。
   
-Good software design has **high cohesion** and **low coupling**.
+好的软件设计应该是 **高内聚 high cohesion** 和 **低耦合 low coupling** 的.
 
 **反例:**
 
 ```ts
 class UserManager {
-  // 反例: each private variable is used by one or another group of methods.
-  // It makes clear evidence that the class is holding more than a single responsibility.
-  // If I need only to create the service to get the transactions for a user,
-  // I'm still forced to pass and instance of `emailSender`.
+  // 反例: 每个私有变量都由一组或另一组方法使用。
+  // 它清楚地证明了这个类承担着不止一项职责。
+  // 如果我只需要创建服务来获取用户的事务，
+  // 我仍然被迫通过 `emailsender` 的实例。
   constructor(
     private readonly db: Database,
     private readonly emailSender: EmailSender) {
@@ -1362,9 +1360,11 @@ class UserNotifier {
 
 **[⬆ 返回顶部](#目录)**
 
-### Prefer composition over inheritance
+### 优先使用组合而不是继承
 
-As stated famously in [Design Patterns](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four, you should *prefer composition over inheritance* where you can. There are lots of good reasons to use inheritance and lots of good reasons to use composition. The main point for this maxim is that if your mind instinctively goes for inheritance, try to think if composition could model your problem better. In some cases it can.  
+正如著名的[设计模式](https://en.wikipedia.org/wiki/Design_Patterns) 中说讲的那样，你应该尽可能地 **优先使用组合而不是继承**。使用继承的理由很多，使用组合的理由也很多。这条格言的要点是，如果你的思想本能地去继承，试着去思考组合是否能更好地模拟你的问题。在某些情况下是可以的。
+
+
   
 You might be wondering then, "when should I use inheritance?" It depends on your problem at hand, but this is a decent list of when inheritance makes more sense than composition:
 
