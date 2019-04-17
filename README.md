@@ -10,8 +10,8 @@
   2. [变量](#变量)
   3. [函数](#函数)
   4. [对象与数据结构](#对象与数据结构)
-  5. [Classes](#classes)
-  6. [SOLID](#solid)
+  5. [类](#类)
+  6. [面向对象设计](#solid)
   7. [Testing](#testing)
   8. [Concurrency](#concurrency)
   9. [Error Handling](#error-handling)
@@ -1364,15 +1364,13 @@ class UserNotifier {
 
 正如著名的[设计模式](https://en.wikipedia.org/wiki/Design_Patterns) 中说讲的那样，你应该尽可能地 **优先使用组合而不是继承**。使用继承的理由很多，使用组合的理由也很多。这条格言的要点是，如果你的思想本能地去继承，试着去思考组合是否能更好地模拟你的问题。在某些情况下是可以的。
 
-
+你也许想知道，“什么时候我们应该使用继承？” 它取决于你当下遇到的问题，但是这是一个很好的例子，说明继承比组合更优雅：
   
-You might be wondering then, "when should I use inheritance?" It depends on your problem at hand, but this is a decent list of when inheritance makes more sense than composition:
+1. 您的继承表示一个"is-a"关系，而不是一个"has-a"关系（人-动物-用户-用户-用户详细信息）
 
-1. Your inheritance represents an "is-a" relationship and not a "has-a" relationship (Human->Animal vs. User->UserDetails).
+2. 您可以重用基类中的代码（人类可以像所有动物一样移动）。
 
-2. You can reuse code from the base classes (Humans can move like all animals).
-
-3. You want to make global changes to derived classes by changing a base class. (Change the caloric expenditure of all animals when they move).
+3. 您希望通过更改基类对派生类进行全局更改。（改变所有动物移动时的热量消耗）。
 
 **反例:**
 
@@ -1386,7 +1384,7 @@ class Employee {
   // ...
 }
 
-// Bad because Employees "have" tax data. EmployeeTaxData is not a type of Employee
+// 不好，因为员工"有"税务数据。EmployeeTaxData不是员工类型
 class EmployeeTaxData extends Employee {
   constructor(
     name: string,
@@ -1431,9 +1429,9 @@ class EmployeeTaxData {
 
 **[⬆ 返回顶部](#目录)**
 
-### Use method chaining
+### 使用链式调用
 
-This pattern is very useful and commonly used in many libraries. It allows your code to be expressive, and less verbose. For that reason, use method chaining and take a look at how clean your code will be.
+这个设计模式非常有用并且在很多库中广泛使用。它可以让你的代码更有表现力，减少冗余。更多是因为，使用链式调用将让你的代码看起来更加简洁。
 
 **反例:**
 
@@ -1513,11 +1511,11 @@ const query = new QueryBuilder()
 
 **[⬆ 返回顶部](#目录)**
 
-## SOLID
+## 面向对象设计
 
-### Single Responsibility Principle (SRP)
+### 单一功能原则 (SRP)
 
-As stated in Clean Code, "There should never be more than one reason for a class to change". It's tempting to jam-pack a class with a lot of functionality, like when you can only take one suitcase on your flight. The issue with this is that your class won't be conceptually cohesive and it will give it many reasons to change. Minimizing the amount of times you need to change a class is important. It's important because if too much functionality is in one class and you modify a piece of it, it can be difficult to understand how that will affect other dependent modules in your codebase.
+正如代码整洁之道里面说的，“一个类改变的原因从来不止一个”。将一个具有很多功能的类塞进包是很诱人的，就像你在航班上只能带一个手提箱一样。这方面的问题是，您的类在概念上不具有内聚性，并且会给它许多改变的原因。减少更改类所需的次数非常重要。这很重要，因为如果一个类中有太多的功能，而您修改了其中的一部分，很难理解这将如何影响代码库中的其他依赖模块。
 
 **反例:**
 
@@ -1568,9 +1566,9 @@ class UserSettings {
 
 **[⬆ 返回顶部](#目录)**
 
-### Open/Closed Principle (OCP)
+### 开闭原则 (OCP)
 
-As stated by Bertrand Meyer, "software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification." What does that mean though? This principle basically states that you should allow users to add new functionalities without changing existing code.
+正如 Bertrand Meyer 所说，“软件实体（类，模块，函数等等）应该打开进行拓展，但是闭合进行更改。” 这意味着什么呢？这个原则基于您应该允许用户在不更改现有代码的情况下添加新功能。
 
 **反例:**
 
@@ -1598,20 +1596,20 @@ class HttpRequester {
   async fetch<T>(url: string): Promise<T> {
     if (this.adapter instanceof AjaxAdapter) {
       const response = await makeAjaxCall<T>(url);
-      // transform response and return
+      // 转换响应与返回
     } else if (this.adapter instanceof NodeAdapter) {
       const response = await makeHttpCall<T>(url);
-      // transform response and return
+      // 转换响应与返回
     }
   }
 }
 
 function makeAjaxCall<T>(url: string): Promise<T> {
-  // request and return promise
+  // 请求与返回 promise
 }
 
 function makeHttpCall<T>(url: string): Promise<T> {
-  // request and return promise
+  // 请求与返回 promise
 }
 ```
 
@@ -1621,7 +1619,7 @@ function makeHttpCall<T>(url: string): Promise<T> {
 abstract class Adapter {
   abstract async request<T>(url: string): Promise<T>;
 
-  // code shared to subclasses ...
+  // 代码分享给子类 ...
 }
 
 class AjaxAdapter extends Adapter {
@@ -1630,7 +1628,7 @@ class AjaxAdapter extends Adapter {
   }
 
   async request<T>(url: string): Promise<T>{
-    // request and return promise
+    // 请求与返回 promise
   }
 
   // ...
@@ -1642,7 +1640,7 @@ class NodeAdapter extends Adapter {
   }
 
   async request<T>(url: string): Promise<T>{
-    // request and return promise
+    // 请求与返回 promise
   }
 
   // ...
@@ -1654,18 +1652,20 @@ class HttpRequester {
 
   async fetch<T>(url: string): Promise<T> {
     const response = await this.adapter.request<T>(url);
-    // transform response and return
+    // 转换响应与返回
   }
 }
 ```
 
 **[⬆ 返回顶部](#目录)**
 
-### Liskov Substitution Principle (LSP)
+### 里氏替换原则 (LSP)
 
-This is a scary term for a very simple concept. It's formally defined as "If S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e., objects of type S may substitute objects of type T) without altering any of the desirable properties of that program (correctness, task performed, etc.)." That's an even scarier definition.  
+对于一个简单的概念来说，它正式被定义为 “如果 S 是 T 的子类型，S 类型的对象将被 T 类型的对象替换（例如：S 类型的对象可能替换 T 类型）不会改变程序的任何可描述属性（例如：正确性，任务的执行）。” 这是一个更可怕的定义。
+
+这里最好的解释就是如果你有一个父类和一个子类，这个基类和子类可以被互换的使用而得到正确的结果。
   
-The best explanation for this is if you have a parent class and a child class, then the base class and child class can be used interchangeably without getting incorrect results. This might still be confusing, so let's take a look at the classic Square-Rectangle example. Mathematically, a square is a rectangle, but if you model it using the "is-a" relationship via inheritance, you quickly get into trouble.
+This might still be confusing, so let's take a look at the classic Square-Rectangle example. Mathematically, a square is a rectangle, but if you model it using the "is-a" relationship via inheritance, you quickly get into trouble.
 
 **反例:**
 
