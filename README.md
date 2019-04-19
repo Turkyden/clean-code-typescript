@@ -11,8 +11,8 @@
   3. [函数](#函数)
   4. [对象与数据结构](#对象与数据结构)
   5. [类](#类)
-  6. [面向对象设计](#solid)
-  7. [Testing](#testing)
+  6. [面向对象设计](#面向对象设计)
+  7. [测试](#testing)
   8. [Concurrency](#concurrency)
   9. [Error Handling](#error-handling)
   10. [Formatting](#formatting)
@@ -1663,9 +1663,7 @@ class HttpRequester {
 
 对于一个简单的概念来说，它正式被定义为 “如果 S 是 T 的子类型，S 类型的对象将被 T 类型的对象替换（例如：S 类型的对象可能替换 T 类型）不会改变程序的任何可描述属性（例如：正确性，任务的执行）。” 这是一个更可怕的定义。
 
-这里最好的解释就是如果你有一个父类和一个子类，这个基类和子类可以被互换的使用而得到正确的结果。
-  
-This might still be confusing, so let's take a look at the classic Square-Rectangle example. Mathematically, a square is a rectangle, but if you model it using the "is-a" relationship via inheritance, you quickly get into trouble.
+这里最好的解释就是如果你有一个父类和一个子类，这个基类和子类可以被互换的使用而得到正确的结果。这可能令人困惑，因此让我们看看经典的“方形-矩形”的例子吧。数学概念里，一个方形是一个矩形，但是，如果您通过继承使用"is-a"关系来建模，您很快就会遇到麻烦。
 
 **反例:**
 
@@ -1719,7 +1717,7 @@ function renderLargeRectangles(rectangles: Rectangle[]) {
     const area = rectangle
       .setWidth(4)
       .setHeight(5)
-      .getArea(); // 反例: Returns 25 for Square. Should be 20.
+      .getArea(); // 反例: 为方形返回 25，事实上返回了 20。
     rectangle.render(area);
   });
 }
@@ -1778,10 +1776,9 @@ renderLargeShapes(shapes);
 
 **[⬆ 返回顶部](#目录)**
 
-### Interface Segregation Principle (ISP)
+### 接口隔离原则 (ISP)
 
-ISP states that "Clients should not be forced to depend upon interfaces that they do not use.". This principle is very much related to the Single Responsibility Principle.
-What it really means is that you should always design your abstractions in a way that the clients that are using the exposed methods do not get the whole pie instead. That also include imposing the clients with the burden of implementing methods that they don’t actually need.
+ISP 表示 “用户不应该强制去依赖他们不需要的接口”。 这个原则与单一责任原则有关。它的真正含义是，您应该始终以使用公开方式的客户机不会得到整个饼图的方式设计你的抽象。这还包括让用户承担他们实际上不需要的实现方法的负担。
 
 **反例:**
 
@@ -1859,17 +1856,17 @@ class EconomicPrinter implements Printer {
 
 **[⬆ 返回顶部](#目录)**
 
-### Dependency Inversion Principle (DIP)
+### 依赖反转原则 (DIP)
 
-This principle states two essential things:
+这个原则涉及到了两个根本性的问题：
 
-1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
+1. 高级模块不应该依赖于低级模块。他们全都应该依赖于抽象。
 
-2. Abstractions should not depend upon details. Details should depend on abstractions.
+2. 抽象不应依赖于实现细节。实现细节应该取决于抽象。
 
-This can be hard to understand at first, but if you've worked with Angular, you've seen an implementation of this principle in the form of Dependency Injection (DI). While they are not identical concepts, DIP keeps high-level modules from knowing the details of its low-level modules and setting them up. It can accomplish this through DI. A huge benefit of this is that it reduces the coupling between modules. Coupling is a very bad development pattern because it makes your code hard to refactor.  
-  
-DIP is usually achieved by a using an inversion of control (IoC) container. An example of a powerful IoC container for TypeScript is [InversifyJs](https://www.npmjs.com/package/inversify)
+开始可能很难去理解，但是如果你用过 Angular，你就会看到以依赖注入（DI）的形式实现这一原则。虽然他们不是相同的概念，DIP 使得高级别的模块无法了解底层模块的详细信息并进行设置。通过依赖注入能够实现这个。这样做的一个几大好处就是减少模块之间的耦合。耦合是一个非常糟糕的设计模式，因为它让你的代码很难去重构。
+
+DIP 是通常是通过控制反转（IOC）容器来实现的。一个强大 IOC 容器的示例是：[InversifyJs](https://www.npmjs.com/package/inversify)
 
 **反例:**
 
@@ -1885,14 +1882,14 @@ type ReportData = {
 
 class XmlFormatter {
   parse<T>(content: string): T {
-    // Converts an XML string to an object T
+    // 将 XML 字符串转化成为 对象 T
   }
 }
 
 class ReportReader {
 
-  // 反例: We have created a dependency on a specific request implementation.
-  // We should just have ReportReader depend on a parse method: `parse`
+  // 反例: 我们已经创建了对特定请求实现的依赖关系。
+  // 我们应该让 ReportReader 依赖于一个分析方法：`Parse`
   private readonly formatter = new XmlFormatter();
 
   async read(path: string): Promise<ReportData> {
@@ -1924,14 +1921,14 @@ interface Formatter {
 
 class XmlFormatter implements Formatter {
   parse<T>(content: string): T {
-    // Converts an XML string to an object T
+    // 将 XML 字符串转化成为 对象 T
   }
 }
 
 
 class JsonFormatter implements Formatter {
   parse<T>(content: string): T {
-    // Converts a JSON string to an object T
+    // 将 JSON 转化成为 对象 T
   }
 }
 
@@ -1949,50 +1946,48 @@ class ReportReader {
 const reader = new ReportReader(new XmlFormatter());
 await report = await reader.read('report.xml');
 
-// or if we had to read a json report
+// 或者如果我们需要读取 json 报告
 const reader = new ReportReader(new JsonFormatter());
 await report = await reader.read('report.json');
 ```
 
 **[⬆ 返回顶部](#目录)**
 
-## Testing
+## 测试
 
-Testing is more important than shipping. If you have no tests or an inadequate amount, then every time you ship code you won't be sure that you didn't break anything.
-Deciding on what constitutes an adequate amount is up to your team, but having 100% coverage (all statements and branches)
-is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a good [coverage tool](https://github.com/gotwarlost/istanbul).
+测试是比部署更重要的事情。如果没有测试或者数量不足，每一次部署代码你将不能保证不会出现什么意外的事情。决定构成多少数额取决你的团队，而不是 100% 覆盖（所有语句和分支）如何获得非常高的信心和开发人员的心态。这意味着有一个很好的测试框架之外，你还需要去使用一个很棒的[覆盖工具](https://github.com/gotwarlost/istanbul).
 
-There's no excuse to not write tests. There are [plenty of good JS test frameworks](http://jstherightway.org/#testing-tools) with typings support for TypeScript, so find one that your team prefers. When you find one that works for your team, then aim to always write tests for every new feature/module you introduce. If your preferred method is Test Driven Development (TDD), that is great, but the main point is to just make sure you are reaching your coverage goals before launching any feature, or refactoring an existing one.  
+没有理由不写测试。这里[大量优秀的 JS 测试框架](http://jstherightway.org/#testing-tools) 支持 TypeScript 类型检测，找一个适合你团队的。当你为团队找到测试框架后，你的目标就是为您引入的每个新特性/模块编写测试。如果你更喜欢测试驱动开发（TDD），那么好，但最重要的一点是，在装载新特性和重构已存在的代码之前，确保你已经达到了测试覆盖目标。
 
-### The three laws of TDD
+### TDD 三大定律
 
-1. You are not allowed to write any production code unless it is to make a failing unit test pass.
+1. 除非要通过失败的单元测试，你不允许编写任何生产代码。
 
-2. You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
+2. 你不允许编写任何超过足够失败的单元测试；编译失败就是失败。
 
-3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
+3. 你不允许编写任何超过通过一个失败的单元测试所需的生产代码。
 
 **[⬆ 返回顶部](#目录)**
 
 ### F.I.R.S.T. rules
 
-Clean tests should follow the rules:
+整洁的测试应该遵循以下法则：
 
-- **Fast** tests should be fast because we want to run them frequently.
+- **敏捷** 测试应该执行的尽可能快因为我们经常要使用它。
 
-- **Independent** tests should not depend on each other. They should provide same output whether run independently or all together in any order.
+- **独立** 测试不应该互相依赖。它们他应该提供相同的输出，无论独立的运行还是以任何顺序排列在一起
 
-- **Repeatable** tests should be repeatable in any environment and there should be no excuse for why they fail.
+- **可重复** 测试应该在任何环境下可重复，并且不应该为他们失败的原因找借口。
 
-- **Self-Validating** a test should answer with either *Passed* or *Failed*. You don't need to compare log files to answer if a test passed.
+- **自我校验** 一个测试应该反馈出 *通过* 或者 *失败*。如果一个测试通过了，你不需要再去对比日志文件才能确认。
 
-- **Timely** unit tests should be written before the production code. If you write tests after the production code, you might find writing tests too hard.
+- **时效性** 单元测试应该在生产代码之前编写。如果你在生产代码之后编写，你可能很难去编写测试。
 
 **[⬆ 返回顶部](#目录)**
 
-### Single concept per test
+### 每次测试的单一概念
 
-Tests should also follow the *Single Responsibility Principle*. Make only one assert per unit test.
+测试应当遵循 *单一责任原则*。为每个单元测试只有一个断言。
 
 **反例:**
 
@@ -2040,9 +2035,9 @@ describe('AwesomeDate', () => {
 
 **[⬆ 返回顶部](#目录)**
 
-### The name of the test should reveal it's intention
+### 测试的名称应该揭示它的意图
 
-When a test fail, it's name is the first indication of what may have gone wrong.
+当一个测试失败时，它的名字是可能出错的第一个指示。
 
 **反例:**
 
