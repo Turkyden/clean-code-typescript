@@ -2069,13 +2069,11 @@ describe('Calendar', () => {
 
 **[⬆ 返回顶部](#目录)**
 
-## Concurrency
+## 并发
 
-### Prefer promises vs callbacks
+### 偏好对比 promises vs callbacks
 
-Callbacks aren't clean, and they cause excessive amounts of nesting *(the callback hell)*.  
-There are utilities that transform existing functions using the callback style to a version that returns promises
-(for Node.js see [`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original), for general purpose see [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify))
+回调不够优雅，他们往往会导致过度的嵌套，比如 *(回调地域)*. 有一些实用的函数可以将已有函数的由回调风格转换成返回 promises 的版本 (Node.js 上可以看看 [`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original), 一般用途可以使用 [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify))
 
 **反例:**
 
@@ -2127,22 +2125,23 @@ downloadPage('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', 'article.html'
   .catch(error => console.error(error));  
 ```
 
-Promises supports a few helper methods that help make code more conscise:  
+Promises 支持一些帮助方法让代码更加的简洁：
 
-| Pattern                  | Description                                |  
+| 模式                  | 描述                                |  
 | ------------------------ | -----------------------------------------  |  
-| `Promise.resolve(value)` | Convert a value into a resolved promise.   |  
-| `Promise.reject(error)`  | Convert an error into a rejected promise.  |  
-| `Promise.all(promises)`  |Returns a new promise which is fulfilled with an array of fulfillment values for the passed promises or rejects with the reason of the first promise that rejects. |
-| `Promise.race(promises)`|Returns a new promise which is fulfilled/rejected with the result/error of the first settled promise from the array of passed promises. |
+| `Promise.resolve(value)` | 将 value 值转化成一个已解决的 promise。|  
+| `Promise.reject(error)`  | 将一个错误转化成被拒绝的 promise。|  
+| `Promise.all(promises)`  | 当所有 promise 解决掉或者只要一个被拒绝，则返回一个新的 promise。|
+| `Promise.race(promises)`| 返回一个已履行/拒绝的新 promise，其中包含已传递 promise 数组中第一个已解决 promise 的结果/错误。 |
 
-`Promise.all` is especially useful when there is a need to run tasks in parallel. `Promise.race` makes it easier to implement things like timeouts for promises.
+`Promise.all` 在执行并发任务时特别有用。
+`Promise.race` 更容易实现 promise 的超时。
 
 **[⬆ 返回顶部](#目录)**
 
-### Async/Await are even cleaner than Promises
+### Async/Await 比 Promises 更加整洁
 
-With `async`/`await` syntax you can write code that is far cleaner and more understandable that chained promises. Within a function prefixed with `async` keyword you have a way to tell the JavaScript runtime to pause the execution of code on the `await` keyword (when used on a promise).
+使用 `async`/`await` 语法你能够编写更加优雅和更好理解的链式 promises. 在一个带有 `async` 前缀的关键词的函数里，你可以在 JavaScript 运行时使用 `await` 关键字阻塞代码执行（当你使用一个 promise 时）。
 
 **反例:**
 
@@ -2177,7 +2176,7 @@ async function downloadPage(url: string, saveTo: string): Promise<string> {
   return response;
 }
 
-// somewhere in an async function
+// 一些地方使用异步函数
 try {
   const content = await downloadPage('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', 'article.html');
   console.log(content);
@@ -2188,7 +2187,7 @@ try {
 
 **[⬆ 返回顶部](#目录)**
 
-## Error Handling
+## 报错处理
 
 Thrown errors are a good thing! They mean the runtime has successfully identified when something in your program has gone wrong and it's letting you know by stopping function
 execution on the current stack, killing the process (in Node), and notifying you in the console with a stack trace.
