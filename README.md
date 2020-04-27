@@ -14,8 +14,8 @@
   6. [面向对象设计](#面向对象设计)
   7. [测试](#testing)
   8. [Concurrency](#concurrency)
-  9. [Error Handling](#error-handling)
-  10. [Formatting](#formatting)
+  9. [异常处理](#异常处理)
+  10. [格式化](#格式化)
   11. [Comments](#comments)
   12. [Translations](#translations)
 
@@ -2187,18 +2187,15 @@ try {
 
 **[⬆ 返回顶部](#目录)**
 
-## 报错处理
+## 异常处理
 
-Thrown errors are a good thing! They mean the runtime has successfully identified when something in your program has gone wrong and it's letting you know by stopping function
-execution on the current stack, killing the process (in Node), and notifying you in the console with a stack trace.
+异常抛出是一件好事情！这意味着当程序出错时运行时能够成功的识别并且让你知道，它通过暂停函数在当前堆栈上的执行，杀死线程（在 Node 中），在控制台中通过调用栈通知你来让你知道。
 
-### Always use Error for throwing or rejecting
+### 总是使用错误 Error 来抛出或者拒绝
 
-JavaScript as well as TypeScript allow you to `throw` any object. A Promise can also be rejected with any reason object.  
-It is advisable to use the `throw` syntax with an `Error` type. This is because your error might be caught in higher level code with a `catch` syntax.
-It would be very confusing to catch a string message there and would make
-[debugging more painful](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error).  
-For the same reason you should reject promises with `Error` types.
+JavaScript 和 TypeScript 都能让你 `throw` 一个对象。一个 Promise 也能够拒绝一个原因对象。使用 `throw` 句法和 `Error` 类型是非常有必要的。这是因为你的错误能够被更高级的代码的 `catch` 语句捕获。在那里捕获一个字符串消息会非常混乱，并且将使得 [debugging 更加痛苦](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error).  
+
+对于相同的原因你应该使用 `Error` 类型去拒绝 promises。
 
 **反例:**
 
@@ -2223,17 +2220,16 @@ function get(): Promise<Item[]> {
   return Promise.reject(new Error('Not implemented.'));
 }
 
-// or equivalent to:
+// 或者等价于：
 
 async function get(): Promise<Item[]> {
   throw new Error('Not implemented.');
 }
 ```
 
-The benefit of using `Error` types is that it is supported by the syntax `try/catch/finally` and implicitly all errors have the `stack` property which
-is very powerful for debugging.  
-There are also another alternatives, not to use the `throw` syntax and instead always return custom error objects. TypeScript makes this even easier.
-Consider following example:
+使用 `Error` 类型的好处是支持 `try/catch/finally` 等句法，以及隐式的非常好用的 debugging。
+
+还有其他的选择，如果不使用 `throw` 句法，我们还可以使用自定义的返回对象。TypeScript 能够让这一过程更加容易，思考一下下面的例子：
 
 ```ts
 type Result<R> = { isError: false, value: R };
@@ -2250,11 +2246,13 @@ function calculateTotal(items: Item[]): Failable<number, 'empty'> {
 }
 ```
 
-For the detailed explanation of this idea refer to the [original post](https://medium.com/@dhruvrajvanshi/making-exceptions-type-safe-in-typescript-c4d200ee78e9).
+有关这个观点的详细说明请查阅 [原始帖子](https://medium.com/@dhruvrajvanshi/making-exceptions-type-safe-in-typescript-c4d200ee78e9).
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't ignore caught errors
+### 不要忘了捕获异常
+
+如果发生一个异常什么都不干的话
 
 Doing nothing with a caught error doesn't give you the ability to ever fix or react to said error. Logging the error to the console (`console.log`) isn't much better as often times it can get lost in a sea of things printed to the console. If you wrap any bit of code in a `try/catch` it means you think an error may occur there and therefore you should have a plan, or create a code path, for when it occurs.
 
@@ -2267,7 +2265,7 @@ try {
   console.log(error);
 }
 
-// or even worse
+// 或者更糟糕的是
 
 try {
   functionThatMightThrow();
@@ -2290,9 +2288,9 @@ try {
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't ignore rejected promises
+### 不要忽略被拒绝的 promises
 
-For the same reason you shouldn't ignore caught errors from `try/catch`.
+原因与你不该忽略从 `try/catch` 捕获的异常相同。
 
 **反例:**
 
@@ -2319,7 +2317,7 @@ getUser()
     logger.log(error);
   });
 
-// or using the async/await syntax:
+// 或者使用 async/await 语法:
 
 try {
   const user = await getUser();
@@ -2331,7 +2329,7 @@ try {
 
 **[⬆ 返回顶部](#目录)**
 
-## Formatting
+## 格式化
 
 Formatting is subjective. Like many rules herein, there is no hard and fast rule that you must follow. The main point is *DO NOT ARGUE* over formatting. There are tons of tools to automate this. Use one! It's a waste of time and money for engineers to argue over formatting. The general rule to follow is *keep consistent formatting rules*.  
 
