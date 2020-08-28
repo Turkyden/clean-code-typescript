@@ -12,12 +12,12 @@
   4. [对象与数据结构](#对象与数据结构)
   5. [类](#类)
   6. [面向对象设计](#面向对象设计)
-  7. [测试](#testing)
-  8. [Concurrency](#concurrency)
+  7. [测试](#测试)
+  8. [并发](#并发)
   9. [异常处理](#异常处理)
   10. [格式化](#格式化)
-  11. [Comments](#comments)
-  12. [Translations](#translations)
+  11. [注释](#注释)
+  12. [翻译](#翻译)
 
 ## 介绍
 
@@ -2252,9 +2252,7 @@ function calculateTotal(items: Item[]): Failable<number, 'empty'> {
 
 ### 不要忘了捕获异常
 
-如果发生一个异常什么都不干的话
-
-Doing nothing with a caught error doesn't give you the ability to ever fix or react to said error. Logging the error to the console (`console.log`) isn't much better as often times it can get lost in a sea of things printed to the console. If you wrap any bit of code in a `try/catch` it means you think an error may occur there and therefore you should have a plan, or create a code path, for when it occurs.
+如果出现一个异常后什么不管的话，你最终将没办法修复和对错误进行响应。使用控制台 (`console.log`) 打印错误通常不是一个办法，因为这样会让你的输出淹没在汪洋大海的控制台里。无论你在 `try/catch` 中写了多少代码，它都将意味着你认为可能在那里发生错误，因此您应该有一个计划，或当它发生时为它创建一个代码运行路径。
 
 **反例:**
 
