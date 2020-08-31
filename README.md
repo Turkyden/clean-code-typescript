@@ -2329,29 +2329,29 @@ try {
 
 ## 格式化
 
-Formatting is subjective. Like many rules herein, there is no hard and fast rule that you must follow. The main point is *DO NOT ARGUE* over formatting. There are tons of tools to automate this. Use one! It's a waste of time and money for engineers to argue over formatting. The general rule to follow is *keep consistent formatting rules*.  
+格式化是非常主观的。就像本文的规则，它没有让你必须遵守的标准固定的规则。最重要的一点是格式化后*毫无争议*。这里有一大堆的工具可以自动化这个过程。对于工程师来说，在格式上争论是在浪费时间和金钱。大部分规则都遵守*保持格式的一致性规则*。
 
-For TypeScript there is a powerful tool called [TSLint](https://palantir.github.io/tslint/). It's a static analysis tool that can help you improve dramatically the readability and maintainability of your code. There are ready to use TSLint configurations that you can reference in your projects:
+对于 TypeScript 可以使用这一强大的工具 [TSLint](https://palantir.github.io/tslint/)。它是一个静态分析工具，能够让你显著的提升代码的可读性和可维护性。如果你准备在项目里使用 TSLint 配置，那么你可以参考这些：
 
-- [TSLint Config Standard](https://www.npmjs.com/package/tslint-config-standard) - standard style rules
+- [TSLint Config Standard](https://www.npmjs.com/package/tslint-config-standard) - 标准风格规则
 
-- [TSLint Config Airbnb](https://www.npmjs.com/package/tslint-config-airbnb) - Airbnb style guide
+- [TSLint Config Airbnb](https://www.npmjs.com/package/tslint-config-airbnb) - Airbnb 风格指南
 
-- [TSLint Clean Code](https://www.npmjs.com/package/tslint-clean-code) - TSLint rules inspired by the [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.ca/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+- [TSLint Clean Code](https://www.npmjs.com/package/tslint-clean-code) - TSLint 规则受启发于 [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.ca/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
 
-- [TSLint react](https://www.npmjs.com/package/tslint-react) - lint rules related to React & JSX
+- [TSLint react](https://www.npmjs.com/package/tslint-react) - 与 React & JSX 有关的 lint 规则
 
-- [TSLint + Prettier](https://www.npmjs.com/package/tslint-config-prettier) - lint rules for [Prettier](https://github.com/prettier/prettier) code formatter
+- [TSLint + Prettier](https://www.npmjs.com/package/tslint-config-prettier) - 为 [Prettier](https://github.com/prettier/prettier) 代码格式化设计的 lint rules
 
-- [ESLint rules for TSLint](https://www.npmjs.com/package/tslint-eslint-rules) - ESLint rules for TypeScript
+- [ESLint rules for TSLint](https://www.npmjs.com/package/tslint-eslint-rules) - TypeScript 的 ESLint 规则
 
-- [Immutable](https://www.npmjs.com/package/tslint-immutable) - rules to disable mutation in TypeScript
+- [Immutable](https://www.npmjs.com/package/tslint-immutable) - TypeScript 里用于禁止突变的规则
 
-Refer also to this great [TypeScript StyleGuide and Coding Conventions](https://basarat.gitbooks.io/typescript/docs/styleguide/styleguide.html) source.
+相关的推荐资源 [TypeScript StyleGuide and Coding Conventions](https://basarat.gitbooks.io/typescript/docs/styleguide/styleguide.html).
 
-### Use consistent capitalization
+### 使用一致的大写
 
-Capitalization tells you a lot about your variables, functions, etc. These rules are subjective, so your team can choose whatever they want. The point is, no matter what you all choose, just *be consistent*.
+大写能提示你更多关于变量，函数等等的信息。这些规则都是主观的，因此你的团队能顾选择是否是他们想要的。重点是，无论你选择何种，都要*保持一致性*。
 
 **反例:**
 
@@ -2385,15 +2385,14 @@ type Animal = { /* ... */ }
 type Container = { /* ... */ }
 ```
 
-Prefer using `PascalCase` for class, interface, type and namespace names.  
-Prefer using `camelCase` for variables, functions and class members.
+更倾向于使用 `PascalCase` 对于 class, interface, type 和 namespace names.  
+更倾向于使用 `camelCase` 对于 variables, functions 和 class members.
 
 **[⬆ 返回顶部](#目录)**
 
-### Function callers and callees should be close
+### 函数调用者与被调用者应该紧密相邻
 
-If a function calls another, keep those functions vertically close in the source file. Ideally, keep the caller right above the callee.
-We tend to read code from top-to-bottom, like a newspaper. Because of this, make your code read that way.
+如果一个函数调用了其他的，应该保持这些函数在文件里是垂直闭合的。理想情况下，在被调用之前保持调用正确，我们更倾向于自顶向下的阅读代码，就像新闻报纸一样。因此，让你的代码以这种方式被读取吧。
 
 **反例:**
 
@@ -2479,22 +2478,22 @@ review.review();
 
 **[⬆ 返回顶部](#目录)**
 
-### Organize imports
+### 组织 imports
 
-With clean and easy to read import statements you can quickly see the dependencies of current code. Make sure you apply following good practices for `import` statements:
+使用整洁且容易阅读的导入声明，能够让你快速查看当前代码的依赖。当你使用 `import` 声明时请确保遵守以下最佳实践：
 
-- Import statements should be alphabetized and grouped.
-- Unused imports should be removed.
-- Named imports must be alphabetized (i.e. `import {A, B, C} from 'foo';`)
-- Import sources must be alphabetized within groups, i.e.: `import * as foo from 'a'; import * as bar from 'b';`
-- Groups of imports are delineated by blank lines.
-- Groups must respect following order:
-  - Polyfills (i.e. `import 'reflect-metadata';`)
-  - Node builtin modules (i.e. `import fs from 'fs';`)
-  - external modules (i.e. `import { query } from 'itiriri';`)
-  - internal modules (i.e `import { UserService } from 'src/services/userService';`)
-  - modules from a parent directory (i.e. `import foo from '../foo'; import qux from '../../foo/qux';`)
-  - modules from the same or a sibling's directory (i.e. `import bar from './bar'; import baz from './bar/baz';`)
+- 导入声明应该按照字母顺讯分组排列。
+- 没用到的导入应当移除掉。
+- 导入的名称必须按照大小写字母排序（例如：`import {A, B, C} from 'foo';`）
+- 导入资源必须按照大小写分组，例如：`import * as foo from 'a'; import * as bar from 'b';`
+- 导入的分组由空白行描述。
+- 分组必须遵守以下顺序：
+  - Polyfills（例如：`import 'reflect-metadata';`）
+  - Node 自带原生模块（例如：`import fs from 'fs';`）
+  - 外部模块（例如：`import { query } from 'itiriri';`）
+  - 内部模块（例如：`import { UserService } from 'src/services/userService';`）
+  - 从父文件夹导入的模块（例如：`import foo from '../foo'; import qux from '../../foo/qux';`）
+  - 从相同或者兄弟节点文件夹导入的模块（例如：`import bar from './bar'; import baz from './bar/baz';`）
 
 **反例:**
 
@@ -2525,11 +2524,11 @@ import { ConfigPlugin } from './plugins/config/configPlugin';
 
 **[⬆ 返回顶部](#目录)**
 
-### Use typescript aliases
+### 使用 typescript aliases
 
-Create prettier imports by defining the paths and baseUrl properties in the compilerOptions section in the `tsconfig.json`
+通过 `tsconfig.json` 中的 compilerOptions 配置项来定义 paths 和 baseUrl 属性，实现更优雅的导入。
 
-This will avoid long relative paths when doing imports.
+当我们使用导入的时候，将避免冗长的相对路径。
 
 **反例:**
 
@@ -2559,16 +2558,16 @@ import { UserService } from '@services/UserService';
 
 **[⬆ 返回顶部](#目录)**
 
-## Comments
+## 注释
 
-The use of a comments is an indication of failure to express without them. Code should be the only source of truth.
+注释的使用表明没有它们就无法表达。代码应该是真理的唯一来源。
   
-> Don’t comment bad code—rewrite it.  
+> 不要为糟糕的代码写注释，你应该重写它们。  
 > — *Brian W. Kernighan and P. J. Plaugher*
 
-### Prefer self explanatory code instead of comments
+### 编写能够自我解释的代码比使用注释更好
 
-Comments are an apology, not a requirement. Good code *mostly* documents itself.
+注释就是一种抱歉，不是必要条件。好的代码 *通常是* 文档本身。
 
 **反例:**
 
@@ -2586,9 +2585,9 @@ if (isSubscriptionActive) { /* ... */ }
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't leave commented out code in your codebase
+### 不要在代码库中留下注释掉的代码
 
-Version control exists for a reason. Leave old code in your history.
+版本控制的存在是有原因的。在历史版本中留下老代码。
 
 **反例:**
 
@@ -2612,9 +2611,9 @@ type User = {
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't have journal comments
+### 不要有日记流水账式的注释
 
-Remember, use version control! There's no need for dead code, commented code, and especially journal comments. Use `git log` to get history!
+记住，请使用版本控制！不要留有躺尸代码，注释代码，尤其是流水账一样的注释。请使用 `git log` 去获取历史记录。
 
 **反例:**
 
@@ -2640,10 +2639,9 @@ function combine(a: number, b: number): number {
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid positional markers
+### 避免占位标记
 
-They usually just add noise. Let the functions and variable names along with the proper indentation and formatting give the visual structure to your code.  
-Most IDE support code folding feature that allows you to collapse/expand blocks of code (see Visual Studio Code [folding regions](https://code.visualstudio.com/updates/v1_17#_folding-regions)).
+这样通常只会让代码变得更加杂乱。让函数和变量名有适当的缩进和格式以便让你的代码具有虚拟结构。大多数 IDE 都支持代码折叠功能，它能让你折叠/展开代码块（查看 Visual Studio Code [folding regions](https://code.visualstudio.com/updates/v1_17#_folding-regions)）。
 
 **反例:**
 
@@ -2702,13 +2700,11 @@ class Client {
 
 **[⬆ 返回顶部](#目录)**
 
-### TODO comments
+### TODO 注释
 
-When you find yourself that you need to leave notes in the code for some later improvements,
-do that using `// TODO` comments. Most IDE have special support for those kind of comments so that
-you can quickly go over the entire list of todos.  
+当你发现你需要在代码里写下一些方便日后实现的笔记时，请使用 `// TODO` 注释。大部分 IDE 都有为这种注释提供特殊支持，因此你可以快速的查阅整个 todos 列表。
 
-Keep in mind however that a *TODO* comment is not an excuse for bad code. 
+牢记这一点，*TODO* 注释不是你编写糟糕代码的接口。
 
 **反例:**
 
@@ -2730,15 +2726,17 @@ function getActiveSubscriptions(): Promise<Subscription[]> {
 
 **[⬆ 返回顶部](#目录)**
 
-## Translations
+## 翻译
 
-There is work in progress for translating this to:
+这里有一些正在进行中的翻译:
 
 - Brazilian portuguese
 - Chinese
 - Japanese
 - Korean
 
-References will be added once translations are completed.  
-Check this [discussion](https://github.com/labs42io/clean-code-typescript/issues/15) for more details and progress.
-You can make an indispensable contribution to *Clean Code* community by translating this to your language.
+相关参考将在完成后一起添加在这里。
+
+查看 [discussion](https://github.com/labs42io/clean-code-typescript/issues/15) 获取更多详情和进展。
+
+你可以通过翻译成你们国家的语言，补充贡献进 *Clean Code* 社区。
